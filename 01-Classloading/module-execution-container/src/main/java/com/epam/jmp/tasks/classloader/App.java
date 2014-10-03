@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class App 
 {
-	public static final String MODULE_FOLDER_PATH = "d:/mentoring/Vital-Liashchuk-Group-1/01-Classloading/module-execution-container/modules";
+	public static final String MODULE_FOLDER_PATH = "modules";
 	public static final String MODULE_CLASS_NAME = "com.epam.jmp.tasks.classloader.Module";
 		
 	private Map<String, IModule> modules = new HashMap<>();
@@ -23,10 +23,7 @@ public class App
 
 			IModule module = (IModule)moduleClazz.newInstance();
 	
-			if(module.getName() != null && modules.containsKey(module.getName())){
-				modules.remove(module.getName());
-			}
-			
+			undeploy(module.getName());
 			modules.put(module.getName(), module);
 			
 		} catch (IOException e) {

@@ -1,8 +1,17 @@
 package com.epam.jmp.tasks.classloader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Module implements IModule{
 
-	public static final String MODULE_NAME = "module2";
+	public static final String MODULE_NAME = "module3";
+	
+	private List<ModulePart> moduleParts = new ArrayList<>();
+	
+	public Module(){
+		moduleParts.add(new ModulePart(this));
+	}
 	
 	@Override
 	public String getName() {
@@ -11,7 +20,10 @@ public class Module implements IModule{
 
 	@Override
 	public void execute() {
-		System.out.println(Module.class.getName() + ".execute(): Here is: " + MODULE_NAME);
+		System.out.println(this.getClass().getName() + ".execute(): Here is: " + MODULE_NAME);
+		for (ModulePart modulePart : moduleParts) {
+			modulePart.execute();
+		}
 		
 	}
 

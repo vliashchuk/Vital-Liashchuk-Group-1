@@ -18,6 +18,22 @@ public class JarClassJoader extends ClassLoader{
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
 		
+//		List<String> classNames=new ArrayList<String>();
+//		ZipInputStream zip=new ZipInputStream(new FileInputStream("/path/to/jar/file.jar"));
+//		for(ZipEntry entry=zip.getNextEntry();entry!=null;entry=zip.getNextEntry())
+//		    if(entry.getName().endsWith(".class") && !entry.isDirectory()) {
+//		        // This ZipEntry represents a class. Now, what class does it represent?
+//		        StringBuilder className=new StringBuilder();
+//		        for(String part : entry.getName().split("/")) {
+//		            if(className.length() != 0)
+//		                className.append(".");
+//		            className.append(part);
+//		            if(part.endsWith(".class"))
+//		                className.setLength(className.length()-".class".length());
+//		        }
+//		        classNames.add(className.toString());
+//		    }
+		
 		JarEntry entry = jar.getJarEntry(name.replace(".", "/")+ ".class");
 		
 		if(entry == null){
