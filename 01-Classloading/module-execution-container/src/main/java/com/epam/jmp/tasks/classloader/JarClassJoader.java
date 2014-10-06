@@ -10,30 +10,16 @@ import java.util.jar.JarFile;
 public class JarClassJoader extends ClassLoader{
 
 	private final JarFile jar;
+	private final File jarFile;
 	
 	public JarClassJoader(String path, String jarName) throws IOException{
-		jar = new JarFile(new File(path, jarName));
+		jarFile = new File(path, jarName);
+		jar = new JarFile(jarFile);
 	}
 	
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
-		
-//		List<String> classNames=new ArrayList<String>();
-//		ZipInputStream zip=new ZipInputStream(new FileInputStream("/path/to/jar/file.jar"));
-//		for(ZipEntry entry=zip.getNextEntry();entry!=null;entry=zip.getNextEntry())
-//		    if(entry.getName().endsWith(".class") && !entry.isDirectory()) {
-//		        // This ZipEntry represents a class. Now, what class does it represent?
-//		        StringBuilder className=new StringBuilder();
-//		        for(String part : entry.getName().split("/")) {
-//		            if(className.length() != 0)
-//		                className.append(".");
-//		            className.append(part);
-//		            if(part.endsWith(".class"))
-//		                className.setLength(className.length()-".class".length());
-//		        }
-//		        classNames.add(className.toString());
-//		    }
-		
+			
 		JarEntry entry = jar.getJarEntry(name.replace(".", "/")+ ".class");
 		
 		if(entry == null){
@@ -59,5 +45,8 @@ public class JarClassJoader extends ClassLoader{
 
 	}
 	
+	public File getJarFile(){
+		return jarFile;
+	}
 	
 }

@@ -1,15 +1,11 @@
 package com.epam.jmp.tasks.classloader;
 
+import org.apache.log4j.Logger;
+
 public class ModulePart {
-	
-	private IModule module;
-	
-	public ModulePart(IModule module){
-		this.module = module;
-	}
+	public static final Logger LOGGER =Logger.getLogger(ModulePart.class);
 	
 	public void execute(){
-		System.out.println(this.getClass().getName() + ".execute(): Here is part of module: " + module.getName());
+		LOGGER.info(this.getClass().getName() + ".execute()");
 	}
-
 }

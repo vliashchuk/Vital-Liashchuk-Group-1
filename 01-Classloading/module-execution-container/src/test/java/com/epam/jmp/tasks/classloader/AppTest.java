@@ -13,9 +13,11 @@ public class AppTest {
 //		app.execute("module2");
 //		app.undeploy("module2");
 //		app.list();
-		app.deploy("module3-1.0-SNAPSHOT.jar");
+		app.deploy("module-1.0-SNAPSHOT.jar", "module3");
 		app.list();
 		app.execute("module3");
+		app.deploy("module1-1.0-SNAPSHOT.jar", "module4");
+		app.execute("module4");
 	}
 	
 }
