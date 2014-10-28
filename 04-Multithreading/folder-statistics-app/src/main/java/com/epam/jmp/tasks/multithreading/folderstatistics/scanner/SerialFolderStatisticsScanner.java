@@ -17,9 +17,7 @@ public class SerialFolderStatisticsScanner implements IFolderStatisticsScanner {
 	@Override
 	public void scan(String folderPath) {
 		ScanningTask scanningTask = new ScanningTask(
-				Paths.get(folderPath),
-				outputWriter,
-				1000);
+				Paths.get(folderPath));
 		scanningTask.run();
 	}
 

@@ -16,12 +16,12 @@ public class App {
 		scanner.scan("D:/TMP/3");
 		scanner.scan("D:/TMP/3");
 		
-		Thread.sleep(500);
-		scanner.stopScanning("D:/TMP/1");
-		Thread.sleep(500);
-		scanner.stopScanning("D:/TMP/2");
-		Thread.sleep(500);
-		scanner.exit();
+//		Thread.sleep(500);
+//		scanner.stopScanning("D:/TMP/1");
+//		Thread.sleep(500);
+//		scanner.stopScanning("D:/TMP/2");
+//		Thread.sleep(500);
+//		scanner.exit();
 		
 	}
 

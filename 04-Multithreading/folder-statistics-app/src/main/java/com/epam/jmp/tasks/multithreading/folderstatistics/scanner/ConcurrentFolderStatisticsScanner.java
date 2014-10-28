@@ -57,9 +57,7 @@ public class ConcurrentFolderStatisticsScanner implements IFolderStatisticsScann
 		}
 		
 		ScanningTask scanningTask = new ScanningTask(
-				path,
-				progressContainer,
-				500);
+				path);
 		Thread scanningThread = new Thread(scanningTask);
 		
 		runningJobs.put(key,

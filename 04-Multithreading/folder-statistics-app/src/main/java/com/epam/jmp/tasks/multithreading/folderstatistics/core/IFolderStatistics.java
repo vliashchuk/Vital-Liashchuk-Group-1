@@ -1,7 +1,14 @@
 package com.epam.jmp.tasks.multithreading.folderstatistics.core;
 
+import java.nio.file.Path;
+
 public interface IFolderStatistics {
 
+	/**
+	 * @return folder path
+	 */
+	Path getFolderPath();
+	
 	/**
 	 * @return number of files.
 	 */

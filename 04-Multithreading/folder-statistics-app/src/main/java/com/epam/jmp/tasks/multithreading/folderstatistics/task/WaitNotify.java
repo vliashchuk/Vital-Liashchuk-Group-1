@@ -1,16 +1,16 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.lock;
+package com.epam.jmp.tasks.multithreading.folderstatistics.task;
 
 public class WaitNotify {
 
 	  MonitorObject myMonitorObject = new MonitorObject();
 	  boolean wasSignalled = false;
 
-	  public void doWait(){
+	  public void doWait() throws InterruptedException{
 	    synchronized(myMonitorObject){
-	      if(!wasSignalled){
-	        try{
-	          myMonitorObject.wait(10);
-	         } catch(InterruptedException e){}
+	      while(!wasSignalled){
+
+	          myMonitorObject.wait();
+
 	      }
 	      //clear signal and continue running.
 	      wasSignalled = false;
