@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.scanner;
+package com.epam.jmp.tasks.multithreading.folderstatistics.task.scanner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,13 +7,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatisticsScanner;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IProgressWriter;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.ITerminatable;
 import com.epam.jmp.tasks.multithreading.folderstatistics.progress.ProgressContainer;
+import com.epam.jmp.tasks.multithreading.folderstatistics.scanner.ProgressWriterListener;
 import com.epam.jmp.tasks.multithreading.folderstatistics.task.ScanningTask;
 
-public class ConcurrentFolderStatisticsScanner implements IFolderStatisticsScanner {
+public class FolderScannerAppDropMe implements IFolderScannerApp {
 
 	private static final Logger LOGGER = Logger.getLogger(ScanningTask.class);
 	
@@ -24,7 +24,7 @@ public class ConcurrentFolderStatisticsScanner implements IFolderStatisticsScann
 	Job progressWriterJob;
 	Map<String,Job> runningJobs = new HashMap<>();
 	
-	public ConcurrentFolderStatisticsScanner(IProgressWriter outputWriter){
+	public FolderScannerAppDropMe(IProgressWriter outputWriter){
 		this.outputWriter = outputWriter;
 		
 		progressContainer = new ProgressContainer();
@@ -124,6 +124,18 @@ public class ConcurrentFolderStatisticsScanner implements IFolderStatisticsScann
 				}
 			}
 		}
+		
+	}
+
+	@Override
+	public void showDetails(String folderPath) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void showList() {
+		// TODO Auto-generated method stub
 		
 	}
 

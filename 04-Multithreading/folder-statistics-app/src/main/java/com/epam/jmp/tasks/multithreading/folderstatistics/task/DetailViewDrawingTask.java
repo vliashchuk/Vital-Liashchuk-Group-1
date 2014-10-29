@@ -1,57 +1,67 @@
 package com.epam.jmp.tasks.multithreading.folderstatistics.task;
 
-import org.apache.log4j.Logger;
-
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatistics;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatisticsProvider;
-import com.epam.jmp.tasks.multithreading.folderstatistics.core.ITerminatable;
+import com.epam.jmp.tasks.multithreading.folderstatistics.task.view.ScanningTaskDetailView;
 
-public class DetailViewDrawingTask implements Runnable, ITerminatable{
-
-	private static final Logger LOGGER = Logger.getLogger(DetailViewDrawingTask.class);
-	
-	private static final int DEFAULT_OUTPUT_TIMEOUT_IN_MS = 1000;
-	
-	private volatile boolean running = true;
+public class DetailViewDrawingTask extends AbstractDrawingTask<IFolderStatistics>{
 	
 	private IFolderStatisticsProvider folderStatisticsProvider;
 	private ScanningTaskDetailView view;
-	private int outputTimeout;
+
 	
 	public DetailViewDrawingTask(ScanningTaskDetailView view){
+		super();
 		this.view = view;
-		this.outputTimeout = DEFAULT_OUTPUT_TIMEOUT_IN_MS;
 	}
 	
 	public DetailViewDrawingTask(ScanningTaskDetailView view, int outputTimeout){
+		super(outputTimeout);
 		this.view = view;
-		this.outputTimeout = outputTimeout;
 	}
 
-	
-	public void setFolderStatisticsAware(IFolderStatisticsProvider folderStatisticsProvider){
+	public void setFolderStatisticsProvider(IFolderStatisticsProvider folderStatisticsProvider){
 		this.folderStatisticsProvider = folderStatisticsProvider;
 	}
 	
 	@Override
-	public void terminate() {
-		running = false;
+	protected IFolderStatistics draw(IFolderStatistics lastDrawnObject) {
+		IFolderStatistics currentStatistics = null;
+		
+		if(folderStatisticsProvider != null){
+			currentStatistics = folderStatisticsProvider.getFolderStatistics();
+			if(hasStatisticsChanged(lastDrawnObject, currentStatistics)){
+				view.setFolderStatistics(currentStatistics);
+				view.draw();
+			}
+		}
+
+		return currentStatistics;
+	}
+	
+	private boolean hasStatisticsChanged(IFolderStatistics oldVal, IFolderStatistics newVal){
+		
+		if(newVal == null
+				||
+		   oldVal == newVal){
+			return false;
+		}
+
+		if((oldVal == null && newVal != null)
+		    ||
+		   !oldVal.getFolderPath().equals(newVal.getFolderPath())
+			||
+		   !oldVal.getFolderCount().equals(newVal.getFolderCount())
+			||
+		   !oldVal.getFileCount().equals(newVal.getFileCount())
+			||
+		   !oldVal.getSize().equals(newVal.getSize())){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	@Override
-	public void run() {
-		try {
-			
-			while(running){
-				view.setFolderStatistics(folderStatisticsProvider.getFolderStatistics());
-				view.draw();
-				Thread.sleep(outputTimeout);
-	
-			}
-		} catch (InterruptedException e) {
-			LOGGER.error("Interrupted while drawing detail view.", e);
-		}
-		
-		
-	}
+
 
 }

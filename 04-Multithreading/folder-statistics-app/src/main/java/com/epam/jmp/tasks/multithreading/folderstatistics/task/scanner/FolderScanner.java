@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task;
+package com.epam.jmp.tasks.multithreading.folderstatistics.task.scanner;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -38,7 +38,7 @@ public class FolderScanner implements ITerminatable, IFolderStatisticsProvider {
 	
 	@Override
 	public FolderStatistics getFolderStatistics(){
-		return folderStatistics;
+		return folderStatistics != null ? new FolderStatistics(folderStatistics) : null;
 	}
 	
 	public void scan() throws IOException {
@@ -57,6 +57,12 @@ public class FolderScanner implements ITerminatable, IFolderStatisticsProvider {
 						
 					folderStatistics.incrementFolderCount();
 
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
 					return FileVisitResult.CONTINUE;
 				}
 
@@ -70,6 +76,13 @@ public class FolderScanner implements ITerminatable, IFolderStatisticsProvider {
 					folderStatistics.incrementFileCount();
 					folderStatistics.incrementFileSize(attrs.size());
 
+					
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					
 					return FileVisitResult.CONTINUE;
 				}
 
@@ -95,12 +108,12 @@ public class FolderScanner implements ITerminatable, IFolderStatisticsProvider {
 			this.folderPath = folderPath;
 		}
 		
-//		public FolderStatistics(FolderStatistics src){
-//			this.folderPath = getFolderPath();
-//			this.fileCount = getFileCount();
-//			this.folderCount = getFolderCount();
-//			this.size = getSize();
-//		}
+		public FolderStatistics(FolderStatistics src){
+			this.folderPath = src.getFolderPath();
+			this.fileCount = src.getFileCount();
+			this.folderCount = src.getFolderCount();
+			this.size = src.getSize();
+		}
 		
 		@Override
 		public Path getFolderPath() {

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatistics;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatisticsProvider;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.ITerminatable;
+import com.epam.jmp.tasks.multithreading.folderstatistics.task.scanner.FolderScanner;
 
 public class ScanningTask implements Runnable, ITerminatable, IFolderStatisticsProvider{
 

@@ -10,7 +10,7 @@ import com.epam.jmp.tasks.multithreading.folderstatistics.core.IProgressWriter;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IScanningProgerss;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.ProgressWrittingError;
 import com.epam.jmp.tasks.multithreading.folderstatistics.lock.FairLock;
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.WaitNotify;
+import com.epam.jmp.tasks.multithreading.folderstatistics.task.utils.WaitNotify;
 
 public class ProgressContainer implements IProgressWriter, IProgressPuller {
 
