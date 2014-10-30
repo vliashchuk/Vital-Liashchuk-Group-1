@@ -20,6 +20,8 @@ public abstract class AbstractDrawingTask<T> implements Runnable, ITerminatable,
 	
 	private int outputTimeout;
 	
+	T lastDrawnObject = null;
+	
 	/**
 	 * delay between drawing output is set to default 1s.
 	 */
@@ -47,8 +49,6 @@ public abstract class AbstractDrawingTask<T> implements Runnable, ITerminatable,
 	@Override
 	public void run() {
 		try {
-			
-			T lastDrawnObject = null;
 			
 			while(running){
 				
@@ -81,6 +81,7 @@ public abstract class AbstractDrawingTask<T> implements Runnable, ITerminatable,
 
 	@Override
 	public void resume() {
+		lastDrawnObject = null;
 		paused = false;
 		pauseWaitNotify.doNotify();
 	}

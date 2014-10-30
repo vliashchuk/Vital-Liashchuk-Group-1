@@ -133,8 +133,8 @@ public class FolderScannerApp implements IFolderScannerApp{
 
 	@Override
 	public void showList() {
-		listViewDrawingTask.resume();
 		detailViewDrawingTask.pause();
+		listViewDrawingTask.resume();
 	}
 
 }

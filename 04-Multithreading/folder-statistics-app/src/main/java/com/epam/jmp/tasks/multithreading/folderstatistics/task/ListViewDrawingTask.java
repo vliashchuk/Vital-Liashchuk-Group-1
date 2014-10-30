@@ -28,11 +28,9 @@ public class ListViewDrawingTask extends AbstractDrawingTask<IJobProperties[]>{
 
 		if(hasScanningJobsChanged(lastDrawnObject, scanningJobs)){
 			view.setScanningJobs(scanningJobs);
-			view.draw();
-			return createCopy(scanningJobs);
-		} else {
-			return scanningJobs;
+			view.draw();	
 		}
+		return createCopy(scanningJobs);
 		
 		
 	}

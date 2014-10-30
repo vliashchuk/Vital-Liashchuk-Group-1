@@ -10,17 +10,25 @@ public class Test {
 		FolderScannerApp app = new FolderScannerApp();
 		
 		app.scan("D:/TMP/1");
-		app.showDetails("D:/TMP/1");
+//		app.showDetails("D:/TMP/1");
 		Thread.sleep(5000);
 		app.scan("D:/TMP/2");
-		app.showDetails("D:/TMP/2");
-		Thread.sleep(5000);
-		app.scan("D:/TMP/3");
-		app.showDetails("D:/TMP/3");
-		Thread.sleep(5000);
-		app.scan("D:/TMP/3");
+//		app.showDetails("D:/TMP/2");
+		Thread.sleep(60000);
+//		app.showDetails("D:/TMP/2");
+//		app.showList();
+		Thread.sleep(60000);
+		app.exit();
+//		app.scan("D:/TMP/3");
+//		app.showDetails("D:/TMP/3");
+//		Thread.sleep(5000);
+//		app.showDetails("D:/TMP/2");
+//		Thread.sleep(5000);
+//		app.showDetails("D:/TMP/3");
+//		Thread.sleep(5000);
+//		app.scan("D:/TMP/3");
 		
-		System.out.println("END!");
+		System.out.println("END!=====================================");
 		
 //		Thread.sleep(500);
 //		app.stopScanning("D:/TMP/1");
