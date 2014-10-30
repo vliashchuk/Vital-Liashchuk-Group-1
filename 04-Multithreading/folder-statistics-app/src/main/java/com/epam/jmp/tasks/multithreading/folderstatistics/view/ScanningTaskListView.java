@@ -1,8 +1,8 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task.view;
+package com.epam.jmp.tasks.multithreading.folderstatistics.view;
 
 import org.apache.log4j.Logger;
 
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.IJobProperties;
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IJobProperties;
 
 public class ScanningTaskListView {
 	private static final Logger LOGGER = Logger.getLogger(ScanningTaskListView.class);

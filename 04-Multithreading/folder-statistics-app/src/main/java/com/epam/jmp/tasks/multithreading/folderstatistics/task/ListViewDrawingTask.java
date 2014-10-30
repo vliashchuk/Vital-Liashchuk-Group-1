@@ -1,6 +1,7 @@
 package com.epam.jmp.tasks.multithreading.folderstatistics.task;
 
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.view.ScanningTaskListView;
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IJobProperties;
+import com.epam.jmp.tasks.multithreading.folderstatistics.view.ScanningTaskListView;
 
 
 public class ListViewDrawingTask extends AbstractDrawingTask<IJobProperties[]>{

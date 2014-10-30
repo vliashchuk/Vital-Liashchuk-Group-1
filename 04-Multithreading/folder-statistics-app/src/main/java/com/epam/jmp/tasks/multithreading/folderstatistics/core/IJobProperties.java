@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task;
+package com.epam.jmp.tasks.multithreading.folderstatistics.core;
 
 public interface IJobProperties {
 

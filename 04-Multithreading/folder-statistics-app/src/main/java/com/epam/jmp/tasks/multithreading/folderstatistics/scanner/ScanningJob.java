@@ -1,7 +1,8 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task;
+package com.epam.jmp.tasks.multithreading.folderstatistics.scanner;
 
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatisticsProvider;
-import com.epam.jmp.tasks.multithreading.folderstatistics.core.ITerminatable;
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IJobProperties;
+import com.epam.jmp.tasks.multithreading.folderstatistics.task.ScanningTask;
 
 public class ScanningJob implements IJobProperties{
 	String name;

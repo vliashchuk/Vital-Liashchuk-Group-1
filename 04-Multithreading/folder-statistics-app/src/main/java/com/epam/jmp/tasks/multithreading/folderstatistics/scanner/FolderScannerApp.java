@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task.scanner;
+package com.epam.jmp.tasks.multithreading.folderstatistics.scanner;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,12 +7,12 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderScannerApp;
 import com.epam.jmp.tasks.multithreading.folderstatistics.task.DetailViewDrawingTask;
 import com.epam.jmp.tasks.multithreading.folderstatistics.task.ListViewDrawingTask;
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.ScanningJob;
 import com.epam.jmp.tasks.multithreading.folderstatistics.task.ScanningTask;
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.view.ScanningTaskDetailView;
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.view.ScanningTaskListView;
+import com.epam.jmp.tasks.multithreading.folderstatistics.view.ScanningTaskDetailView;
+import com.epam.jmp.tasks.multithreading.folderstatistics.view.ScanningTaskListView;
 
 public class FolderScannerApp implements IFolderScannerApp{
 

@@ -2,7 +2,7 @@ package com.epam.jmp.tasks.multithreading.folderstatistics.task;
 
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatistics;
 import com.epam.jmp.tasks.multithreading.folderstatistics.core.IFolderStatisticsProvider;
-import com.epam.jmp.tasks.multithreading.folderstatistics.task.view.ScanningTaskDetailView;
+import com.epam.jmp.tasks.multithreading.folderstatistics.view.ScanningTaskDetailView;
 
 public class DetailViewDrawingTask extends AbstractDrawingTask<IFolderStatistics>{
 	

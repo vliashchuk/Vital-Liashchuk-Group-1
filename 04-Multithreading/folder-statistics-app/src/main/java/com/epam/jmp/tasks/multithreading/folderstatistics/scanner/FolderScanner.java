@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task.scanner;
+package com.epam.jmp.tasks.multithreading.folderstatistics.scanner;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;

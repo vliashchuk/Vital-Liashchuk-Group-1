@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.multithreading.folderstatistics.task.scanner;
+package com.epam.jmp.tasks.multithreading.folderstatistics.scanner;
 
 public class Test {
 
