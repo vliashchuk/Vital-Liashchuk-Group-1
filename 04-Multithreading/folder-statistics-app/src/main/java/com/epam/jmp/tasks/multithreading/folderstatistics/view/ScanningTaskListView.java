@@ -21,7 +21,6 @@ public class ScanningTaskListView {
 		}
 		for(IScanningTaskState scanningJob:scanningJobs){
 			StringBuffer string = new StringBuffer();
-			string.append("Path: ");
 			string.append(scanningJob.getName());
 			string.append("; Status: ");
 			string.append(scanningJob.getStatus().toString());
