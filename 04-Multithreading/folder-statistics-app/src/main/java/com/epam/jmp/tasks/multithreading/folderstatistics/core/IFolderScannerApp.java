@@ -3,6 +3,11 @@ package com.epam.jmp.tasks.multithreading.folderstatistics.core;
 public interface IFolderScannerApp {
 
 	/**
+	 * @return application name.
+	 */
+	String getName();
+	
+	/**
 	 * Submits scanning task and represents it in list view.
 	 * Task scans folders recursively and calculates statistics. 
 	 * @param folderPath folder to scan
@@ -13,10 +18,8 @@ public interface IFolderScannerApp {
 	 * Stops task that is scanning passed folder.
 	 * Represents it in list view.
 	 * @param folderPath folder to stop scanning
-	 * @throws InterruptedException thrown when 
-	 * thread is interrupted while waiting for stopping scanning thread
 	 */
-	void stopScanning(String folderPath) throws InterruptedException;
+	void stopScanning(String folderPath);
 	
 	/**
 	 * Exits FolderScannerApp.
@@ -27,13 +30,13 @@ public interface IFolderScannerApp {
 	 */
 	void exit() throws InterruptedException;
 	
-	/**
-	 * Shows details of scanning for corresponding folder.
-	 */
-	void showDetails(String folderPath);
-	
-	/**
-	 * Shows list of all scanning tasks with statuses.
-	 */
-	void showList();
+//	/**
+//	 * Shows details of scanning for corresponding folder.
+//	 */
+//	void showDetails(String folderPath);
+//	
+//	/**
+//	 * Shows list of all scanning tasks with statuses.
+//	 */
+//	void showList();
 }

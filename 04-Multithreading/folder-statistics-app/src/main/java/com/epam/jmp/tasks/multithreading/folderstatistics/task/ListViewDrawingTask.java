@@ -1,97 +1,93 @@
 package com.epam.jmp.tasks.multithreading.folderstatistics.task;
 
-import com.epam.jmp.tasks.multithreading.folderstatistics.core.IJobProperties;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IScanningTaskListener;
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.IScanningTaskState;
+import com.epam.jmp.tasks.multithreading.folderstatistics.core.ITerminatable;
 import com.epam.jmp.tasks.multithreading.folderstatistics.view.ScanningTaskListView;
 
 
-public class ListViewDrawingTask extends AbstractDrawingTask<IJobProperties[]>{
+public class ListViewDrawingTask implements Runnable, ITerminatable, IScanningTaskListener{
 
-	IJobProperties[] scanningJobs;
-
+	private static final Logger LOGGER = Logger.getLogger(ListViewDrawingTask.class);
+	
+	private volatile boolean running = true;
+	
+	private MonitorObject monitor = new MonitorObject();
+	private boolean notifyed = false;
+	
 	private ScanningTaskListView view;
 	
+	private Map<String, IScanningTaskState> scanningJobs = new HashMap<>();
+	
 	public ListViewDrawingTask(ScanningTaskListView view){
-		super();
 		this.view = view;
 	}
+
+	private class MonitorObject{}
 	
-	public ListViewDrawingTask(ScanningTaskListView view, int outputTimeout){
-		super(outputTimeout);
-		this.view = view;
-	}
-	
-	public void setScanningJobs(IJobProperties[] scanningJobs){
-		this.scanningJobs = scanningJobs;
+	@Override
+	public void run() {
+		try {
+			
+			while(true){
+				
+				IScanningTaskState[] jobsToDraw;
+				synchronized (monitor) {
+					while(!notifyed){
+						monitor.wait();
+					}
+					notifyed = false;
+					jobsToDraw = scanningJobs.values().toArray(
+							new IScanningTaskState[scanningJobs.size()]);
+				}
+				if(running){
+					view.setScanningJobs(jobsToDraw);
+					view.draw();
+				} else {
+					break;
+				}				
+			}
+		} catch (InterruptedException e) {
+			LOGGER.error("Interrupted while drawing view in " + this.getClass(), e);
+		}		
 	}
 
 	@Override
-	protected IJobProperties[] draw(IJobProperties[] lastDrawnObject) {
-
-		if(hasScanningJobsChanged(lastDrawnObject, scanningJobs)){
-			view.setScanningJobs(scanningJobs);
-			view.draw();	
-		}
-		return createCopy(scanningJobs);
-		
-		
-	}
-
-	private boolean hasScanningJobsChanged(IJobProperties[] oldVal, IJobProperties[] newVal){
-		if(newVal == null
-				||
-		   oldVal == newVal){
-			return false;
-		}
-		
-		if ((oldVal == null && newVal != null)
-				||
-			(oldVal.length != newVal.length)) {
-			return true;
-		}
-		
-
-		for(int i=0; i<oldVal.length; i++){
-			if(oldVal[i].getName() != newVal[i].getName()
-				||
-				oldVal[i].isActive() != newVal[i].isActive()){
-				return true;
-			}
-		}
-		return false;
-
+	public boolean isRunning(){
+		return running;
 	}
 	
-	private IJobProperties[] createCopy(IJobProperties[] src){
-		
-		IJobProperties[] ret = new IJobProperties[src.length];
-		
-		for(int i= 0 ; i<ret.length; i++){
-			ret[i] = new JobProperties(src[i]);
+	@Override
+	public void terminate() {
+		running = false;
+		synchronized (monitor) {
+			notifyed = true;
+			monitor.notify();
 		}
-		
-		return ret;
 	}
 
-	private class JobProperties implements IJobProperties{
+//	public void doNotify(){
+//		doNotify(null);
+//	}
+	
+	private void doNotify(IScanningTaskState jobProperties){
+		synchronized (monitor) {
+			if(jobProperties!=null){
+				scanningJobs.put(jobProperties.getName().toLowerCase(), jobProperties);
+			}
+			notifyed = true;
+			monitor.notify();
+		}
+	}
 
-		private String name;
-		private boolean active;
-		
-		public JobProperties(IJobProperties src){
-			this.name = src.getName();
-			this.active = src.isActive();
-		}
-		
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public boolean isActive() {
-			return active;
-		}
-		
+	@Override
+	public void onStateChanged(IScanningTaskState jobProperties) {
+		doNotify(jobProperties);
 	}
 	
 }
