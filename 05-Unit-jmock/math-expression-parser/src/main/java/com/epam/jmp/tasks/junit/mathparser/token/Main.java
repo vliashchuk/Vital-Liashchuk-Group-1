@@ -13,6 +13,12 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		/*http://cofe-tv.blogspot.com/2010/07/blog-post_8568.html
+		http://cofe-tv.blogspot.com/2010/07/blog-post_1046.html
+		http://cofe-tv.blogspot.com/2010/11/blog-post_26.html
+		*/
+		System.out.println();
+		
 		// Инициализируем лексический анализатор
 		TokensParser tokParser = new TokensParser();
 
