@@ -2,7 +2,8 @@ package com.epam.jmp.tasks.junit.mathparser.token.parser;
 
 import java.util.regex.Pattern;
 
-import com.epam.jmp.tasks.junit.mathparser.token.NumberToken;
+import com.epam.jmp.tasks.junit.mathparser.token.SummaOperator;
+import com.epam.jmp.tasks.junit.mathparser.token.SummaOperatorToken;
 import com.epam.jmp.tasks.junit.mathparser.token.Token;
 
 public class SummaOperatorParser extends AbstractTokenParser {
@@ -15,12 +16,11 @@ public class SummaOperatorParser extends AbstractTokenParser {
 	}
 
 	@Override
-	protected Token createToken(String source, String text, int beginIndex,
-			int endIndex) {
+	protected Token createToken(String text) {
 		
-		Double number = Double.parseDouble(text);
+		SummaOperator operator = SummaOperator.getOperator(text);
 
-		Token tok = new NumberToken(source, text, beginIndex, endIndex, number);
+		Token tok = new SummaOperatorToken(text, operator);
 		
 		return tok;
 	}

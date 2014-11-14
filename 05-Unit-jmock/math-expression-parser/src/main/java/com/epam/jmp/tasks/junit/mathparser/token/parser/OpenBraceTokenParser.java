@@ -15,12 +15,9 @@ public class OpenBraceTokenParser extends AbstractTokenParser {
 	}
 
 	@Override
-	protected Token createToken(String source, String text, int beginIndex,
-			int endIndex) {
+	protected Token createToken(String text) {
 
-		Token tok = new OpenBraceToken(source, text, beginIndex, endIndex);
-		
-		return tok;
+		return new OpenBraceToken(text);
 	}
 
 }

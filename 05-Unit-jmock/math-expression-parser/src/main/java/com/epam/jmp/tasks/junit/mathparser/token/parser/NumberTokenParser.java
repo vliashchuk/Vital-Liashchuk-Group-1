@@ -15,12 +15,11 @@ public class NumberTokenParser extends AbstractTokenParser {
 	}
 
 	@Override
-	protected Token createToken(String source, String text, int beginIndex,
-			int endIndex) {
+	protected Token createToken(String text) {
 		
 		Double number = Double.parseDouble(text);
 
-		Token tok = new NumberToken(source, text, beginIndex, endIndex, number);
+		Token tok = new NumberToken(text, number);
 		
 		return tok;
 	}

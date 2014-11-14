@@ -15,12 +15,8 @@ public class CloseBraceTokenParser extends AbstractTokenParser {
 	}
 
 	@Override
-	protected Token createToken(String source, String text, int beginIndex,
-			int endIndex) {
-
-		Token tok = new CloseBraceToken(source, text, beginIndex, endIndex);
-		
-		return tok;
+	protected Token createToken(String text) {
+		return new CloseBraceToken(text);
 	}
 
 }

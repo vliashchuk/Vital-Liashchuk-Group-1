@@ -14,7 +14,14 @@ public enum SummaOperator {
 	private String getValue(){
 		return value;
 	}
-//	public SummaOperator valueOf(String str){
-//		
-//	}
+	public static SummaOperator getOperator(String str){
+		
+		for(SummaOperator o:SummaOperator.values()){
+			if(o.getValue().equals(str)){
+				return o;
+			}
+		}
+		return null;
+		
+	}
 }

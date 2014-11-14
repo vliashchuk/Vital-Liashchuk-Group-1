@@ -3,8 +3,8 @@ package com.epam.jmp.tasks.junit.mathparser.token;
 
 public class NumberToken extends Token {
 
-	public NumberToken(String soutce, String text, int beginIndex, int endIndex, Double number){
-		super(soutce, text, beginIndex, endIndex);
+	public NumberToken(String text, Double number){
+		super(text);
 		this.number = number;
 	}
 

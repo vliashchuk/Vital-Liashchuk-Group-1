@@ -15,10 +15,9 @@ public class WhiteSpaceTokenParser extends AbstractTokenParser {
 	}
 
 	@Override
-	protected Token createToken(String source, String text, int beginIndex,
-			int endIndex) {
+	protected Token createToken(String text) {
 
-		Token tok = new WhiteSpaceToken(source, text, beginIndex, endIndex);
+		Token tok = new WhiteSpaceToken(text);
 		
 		return tok;
 	}

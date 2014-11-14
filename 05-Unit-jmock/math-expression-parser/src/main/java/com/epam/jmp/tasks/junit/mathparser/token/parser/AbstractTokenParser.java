@@ -12,31 +12,31 @@ public abstract class AbstractTokenParser implements TokenParser {
 	private static final Logger LOGGER = Logger.getLogger(AbstractTokenParser.class);
 	
 	@Override
-	public final Token parseToken(String source, int fromIndex) {
-		if (source == null) {
-			throw new IllegalArgumentException("source == null");
+	public final Token parseToken(ParsingContext context) {
+
+		if (context.getCurrentPosition() >= context.getSource().length()){
+			return null;
 		}
 
-		if (fromIndex >= source.length())
-			return null;
-
 		Pattern p = getPattern();
-		Matcher m = p.matcher(source.substring(fromIndex));
-		if (!m.matches())
+		Matcher m = p.matcher(context.getSource().substring(context.getCurrentPosition()));
+		if (!m.matches()){
 			return null;
+		}
 
 		String mText = m.group(1);
 		
 		LOGGER.trace("Creating token for extracted text: '"+ mText + "'");
 		
-		Token tok = createToken(source, mText, fromIndex, fromIndex
-				+ mText.length());
+		Token token = createToken(mText);
 
-		return tok;
+		context.setCurrentPosition(context.getCurrentPosition() + mText.length());
+		
+		return token;
 	}
 	
 	protected abstract Pattern getPattern();
-	protected abstract Token createToken(String source, String text, int beginIndex, int endIndex);
+	protected abstract Token createToken(String text);
 	
 
 }

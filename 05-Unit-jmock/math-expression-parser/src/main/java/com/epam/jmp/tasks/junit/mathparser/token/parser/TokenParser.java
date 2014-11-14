@@ -4,5 +4,5 @@ import com.epam.jmp.tasks.junit.mathparser.token.Token;
 
 public interface TokenParser {
 
-	public Token parseToken(String source,int fromIndex);
+	public Token parseToken(ParsingContext context);
 }
