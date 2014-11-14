@@ -3,9 +3,13 @@ package com.epam.jmp.tasks.junit.mathparser.token.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 import com.epam.jmp.tasks.junit.mathparser.token.Token;
 
 public abstract class AbstractTokenParser implements TokenParser {
+	
+	private static final Logger LOGGER = Logger.getLogger(AbstractTokenParser.class);
 	
 	@Override
 	public final Token parseToken(String source, int fromIndex) {
@@ -22,7 +26,9 @@ public abstract class AbstractTokenParser implements TokenParser {
 			return null;
 
 		String mText = m.group(1);
-
+		
+		LOGGER.trace("Creating token for extracted text: '"+ mText + "'");
+		
 		Token tok = createToken(source, mText, fromIndex, fromIndex
 				+ mText.length());
 

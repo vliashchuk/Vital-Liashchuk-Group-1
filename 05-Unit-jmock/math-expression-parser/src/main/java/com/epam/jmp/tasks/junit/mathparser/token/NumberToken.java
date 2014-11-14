@@ -7,16 +7,10 @@ public class NumberToken extends Token {
 		super(soutce, text, beginIndex, endIndex);
 		this.number = number;
 	}
-	
 
 	Double number;
 	
 	public double getNumber(){
 		return number;
-	}
-	
-	@Override
-	public String toString(){
-		return "<" + number +  ">";
 	}
 }

@@ -14,37 +14,26 @@ public class Token {
 	private int beginIndex;
 	private int endIndex;
 	
-	/**
-	* Возвращает индекс начала лексемы
-	* @return Индекс начала лексемы
-	*/
 	public int getBegin(){
 		return beginIndex;
 	}
 
-	/**
-	* Возвращает конца лексемы (исключительно)
-	* @return Индекс конца лексемы (исключительно)
-	*/
 	public int getEnd(){
 		return endIndex;
 	}
 
-	/**
-	* Возвращает исходный текст
-	* @return Исходная строка
-	*/
 	public String getSource(){
 		return soutce;
 	}
 
-	/**
-	* Возвращает текст лексемы
-	* @return текст лексемы
-	*/
 	public String getText(){
 		return text;
 	}
 
+	@Override
+	public String toString(){
+		return "<" + getText() +  ">";
+	}
+	
 	
 }
