@@ -10,7 +10,7 @@ public class NumberToken extends Token {
 
 	Double number;
 	
-	public double getNumber(){
+	public Double getNumber(){
 		return number;
 	}
 }

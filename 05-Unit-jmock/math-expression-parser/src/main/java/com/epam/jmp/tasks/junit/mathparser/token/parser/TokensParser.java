@@ -14,7 +14,7 @@ public class TokensParser {
 	private List<TokenParser> parsers;
 	
 
-	public TokensParser(List<TokenParser> parsers){
+	private TokensParser(List<TokenParser> parsers){
 		this.parsers = parsers;
 	}
 	

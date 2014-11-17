@@ -1,23 +1,29 @@
 package com.epam.jmp.tasks.junit.mathparser.rule;
 
-import java.util.List;
-
 import com.epam.jmp.tasks.junit.mathparser.token.Token;
 
 public class RuleContext {
 
-	public RuleContext(List<Token> tokens) {
+	public RuleContext(Token[] tokens) {
 		this.tokens = tokens;
 	}
 	
-	private List<Token> tokens;
+	private Token[] tokens;
 	
 	private int currentPosition = 0;
 
-	public List<Token> getTokens() {
-		return tokens;
+	public Token getToken(int position) {
+		if(position>=tokens.length){
+			return null;
+		} else {
+			return tokens[position];
+		}
 	}
 
+	public int getTokensCount() {
+		return tokens.length;
+	}
+	
 	public int getCurrentPosition() {
 		return currentPosition;
 	}

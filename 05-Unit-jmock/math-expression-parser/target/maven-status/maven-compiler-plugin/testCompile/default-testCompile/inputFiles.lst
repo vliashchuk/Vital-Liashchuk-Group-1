@@ -1,0 +1,12 @@
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\expression\MultiplyExpressionTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\expression\PlusExpressionTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\OpenBraceTokenParserTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\CloseBraceTokenParserTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\MultiplyDivideOperatorTokenParserTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\TokensParserTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\WhiteSpaceTokenParserTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\expression\MinusExpressionTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\PlusMinusOperatorTokenParserTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\expression\DivideExpressionTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\expression\ConstantExpressionTest.java
+D:\USER_IHAR\mentoring\git\05-Unit-jmock\math-expression-parser\src\test\java\com\epam\jmp\tasks\junit\mathparser\token\parser\NumberTokenParserTest.java
