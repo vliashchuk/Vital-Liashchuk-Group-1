@@ -1,5 +1,7 @@
 package com.epam.jmp.tasks.junit.mathparser.token.parser;
 
+import java.util.Arrays;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +14,6 @@ import com.epam.jmp.tasks.junit.mathparser.token.OpenBraceToken;
 import com.epam.jmp.tasks.junit.mathparser.token.PlusMinusOperator;
 import com.epam.jmp.tasks.junit.mathparser.token.PlusMinusOperatorToken;
 import com.epam.jmp.tasks.junit.mathparser.token.Token;
-import com.epam.jmp.tasks.junit.mathparser.token.WhiteSpaceToken;
 
 public class TokensParserTest {
 	
@@ -70,6 +71,7 @@ public class TokensParserTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void testNegative(){
 		Token[] tokens = tokensParser.parse(" 1,1 * 2 / 3 + (1.5 - 1)");
+		System.out.println(Arrays.toString(tokens));
 	}
 }
 

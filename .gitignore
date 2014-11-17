@@ -3,3 +3,4 @@
 *.jar
 *.prefs
 *.class
+05-Unit-jmock/math-expression-parser/target/**
