@@ -18,10 +18,9 @@ public class PlusExpressionTest {
 	}
 	
 	@Test
-	public void test(){
+	public void test() throws ExpressionEvaluationException{
 		Expression expression = new PlusExpression(leftOperand, rightOperand);
 		Assert.assertEquals(expected,
-				expression.evaluate(new ExpressionContext() {
-				}));
+				expression.evaluate(new SimpleExpressionContext()));
 	}
 }

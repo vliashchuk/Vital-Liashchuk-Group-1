@@ -18,11 +18,10 @@ public class MinusExpressionTest {
 	}
 	
 	@Test
-	public void test(){
+	public void test() throws ExpressionEvaluationException{
 		Expression expression = new MinusExpression(leftOperand, rightOperand);
 		Assert.assertEquals(expected,
-				expression.evaluate(new ExpressionContext() {
-				}));
+				expression.evaluate(new SimpleExpressionContext()));
 	}
 
 	

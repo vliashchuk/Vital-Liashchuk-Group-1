@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.epam.jmp.tasks.junit.mathparser.token.CloseBraceToken;
+import com.epam.jmp.tasks.junit.mathparser.token.CloseBracketToken;
 import com.epam.jmp.tasks.junit.mathparser.token.Token;
 
 public class CloseBraceTokenParserTest {
@@ -13,14 +13,14 @@ public class CloseBraceTokenParserTest {
 	
 	@Before
 	public void prepare(){
-		tokenParser = new CloseBraceTokenParser();
+		tokenParser = new CloseBracketTokenParser();
 	}
 	
 	@Test
 	public void test(){
 		Token token = tokenParser.parseToken(new ParsingContext(" )"));
 		Assert.assertNotNull(token);
-		Assert.assertEquals(CloseBraceToken.class, token.getClass());
+		Assert.assertEquals(CloseBracketToken.class, token.getClass());
 
 	}
 	

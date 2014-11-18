@@ -1,24 +1,24 @@
 package com.epam.jmp.tasks.junit.mathparser;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.epam.jmp.tasks.junit.mathparser.expression.Expression;
-import com.epam.jmp.tasks.junit.mathparser.expression.ExpressionContext;
+import com.epam.jmp.tasks.junit.mathparser.expression.ExpressionEvaluationException;
+import com.epam.jmp.tasks.junit.mathparser.expression.SimpleExpressionContext;
+import com.epam.jmp.tasks.junit.mathparser.rule.PlusMinusRule;
 import com.epam.jmp.tasks.junit.mathparser.rule.RuleApplyingException;
 import com.epam.jmp.tasks.junit.mathparser.rule.RuleContext;
-import com.epam.jmp.tasks.junit.mathparser.rule.PlusMinusRule;
 import com.epam.jmp.tasks.junit.mathparser.token.Token;
-import com.epam.jmp.tasks.junit.mathparser.token.parser.CloseBraceTokenParser;
+import com.epam.jmp.tasks.junit.mathparser.token.parser.CloseBracketTokenParser;
 import com.epam.jmp.tasks.junit.mathparser.token.parser.MultiplyDivideOperatorTokenParser;
 import com.epam.jmp.tasks.junit.mathparser.token.parser.NumberTokenParser;
-import com.epam.jmp.tasks.junit.mathparser.token.parser.OpenBraceTokenParser;
+import com.epam.jmp.tasks.junit.mathparser.token.parser.OpenBracketTokenParser;
 import com.epam.jmp.tasks.junit.mathparser.token.parser.PlusMinusOperatorTokenParser;
 import com.epam.jmp.tasks.junit.mathparser.token.parser.TokenParser;
 import com.epam.jmp.tasks.junit.mathparser.token.parser.TokensParser;
-import com.epam.jmp.tasks.junit.mathparser.token.parser.WhiteSpaceTokenParser;
+import com.epam.jmp.tasks.junit.mathparser.token.parser.VariableTokenParser;
 
 public class Main {
 
@@ -33,13 +33,14 @@ public class Main {
 		
 		TokenParser[] tokenParsers = {new PlusMinusOperatorTokenParser(),
 				                      new MultiplyDivideOperatorTokenParser(),
-				                      new OpenBraceTokenParser(),
-				                      new CloseBraceTokenParser(),
-				                      new NumberTokenParser()};
+				                      new OpenBracketTokenParser(),
+				                      new CloseBracketTokenParser(),
+				                      new NumberTokenParser(),
+				                      new VariableTokenParser()};
 		
 		TokensParser tokensParser = TokensParser.createParser(tokenParsers);
 
-		String source = "1+ 1/2*1/2+2";
+		String source = "1+ 1/2*x1 + 2 + X2";
 		LOGGER.debug("Trying to parse:" + source);
 		
 		Token[] tokens = tokensParser.parse(source);
@@ -57,10 +58,12 @@ public class Main {
 		try {
 			expression = new PlusMinusRule().apply(new RuleContext(tokens));
 			LOGGER.debug("Trying to evaluate...");
-			Double val =expression.evaluate(new ExpressionContext() {
-			});
+			SimpleExpressionContext contex = new SimpleExpressionContext();
+			contex.setVariable("x1", 2d);
+			contex.setVariable("x2", 1d);
+			Double val =expression.evaluate(contex);
 			LOGGER.debug("Result: " + val);
-		} catch (RuleApplyingException e) {
+		} catch (RuleApplyingException | ExpressionEvaluationException e) {
 			LOGGER.error(e);
 		}
 		

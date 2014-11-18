@@ -11,7 +11,7 @@ public class MinusExpression implements Expression {
 	}
 	
 	@Override
-	public Double evaluate(ExpressionContext context) {
+	public Double evaluate(ExpressionContext context) throws ExpressionEvaluationException {
 		return leftOperand.evaluate(context)-rightOperand.evaluate(context);
 	}
 

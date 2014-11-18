@@ -2,11 +2,13 @@ package com.epam.jmp.tasks.junit.mathparser.rule;
 
 import com.epam.jmp.tasks.junit.mathparser.expression.ConstantExpression;
 import com.epam.jmp.tasks.junit.mathparser.expression.Expression;
-import com.epam.jmp.tasks.junit.mathparser.token.CloseBraceToken;
+import com.epam.jmp.tasks.junit.mathparser.expression.VariableExpression;
+import com.epam.jmp.tasks.junit.mathparser.token.CloseBracketToken;
 import com.epam.jmp.tasks.junit.mathparser.token.NumberToken;
-import com.epam.jmp.tasks.junit.mathparser.token.OpenBraceToken;
+import com.epam.jmp.tasks.junit.mathparser.token.OpenBracketToken;
 import com.epam.jmp.tasks.junit.mathparser.token.PlusMinusOperator;
 import com.epam.jmp.tasks.junit.mathparser.token.PlusMinusOperatorToken;
+import com.epam.jmp.tasks.junit.mathparser.token.VariableToken;
 
 public class ValueRule implements Rule{
 
@@ -19,6 +21,14 @@ public class ValueRule implements Rule{
 			NumberToken value = (NumberToken) context.getToken(context.getCurrentPosition());
 			context.setCurrentPosition(context.getCurrentPosition()+1);
 			return new ConstantExpression(value.getNumber());
+		}
+		
+		if(context.getToken(context.getCurrentPosition()) !=null
+				&&	
+		   VariableToken.class.isAssignableFrom(context.getToken(context.getCurrentPosition()).getClass())){
+			VariableToken value = (VariableToken) context.getToken(context.getCurrentPosition());
+			context.setCurrentPosition(context.getCurrentPosition()+1);
+			return new VariableExpression(value.getName());
 		}
 		
 		if(context.getToken(context.getCurrentPosition()) != null
@@ -41,14 +51,14 @@ public class ValueRule implements Rule{
 		
 		if(context.getToken(context.getCurrentPosition()) != null
 			&&
-		   OpenBraceToken.class.isAssignableFrom(context.getToken(context.getCurrentPosition()).getClass())){
+		   OpenBracketToken.class.isAssignableFrom(context.getToken(context.getCurrentPosition()).getClass())){
 			
 			context.setCurrentPosition(context.getCurrentPosition()+1);
 			Expression value = new PlusMinusRule().apply(context);
 			
 			if(context.getToken(context.getCurrentPosition()) != null
 				&&
-			   CloseBraceToken.class.isAssignableFrom(context.getToken(context.getCurrentPosition()).getClass())){
+			   CloseBracketToken.class.isAssignableFrom(context.getToken(context.getCurrentPosition()).getClass())){
 				context.setCurrentPosition(context.getCurrentPosition()+1);
 				return value;
 			}

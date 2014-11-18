@@ -34,7 +34,7 @@ public class NumberTokenParserTest {
 	
 	@Test
 	public void negativeTest(){
-		Token token = tokenParser.parseToken(new ParsingContext(" )"));
+		Token token = tokenParser.parseToken(new ParsingContext(" ("));
 		Assert.assertNull(token);
 	}
 }

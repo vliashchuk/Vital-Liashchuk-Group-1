@@ -16,11 +16,10 @@ public class ConstantExpressionTest {
 	}
 	
 	@Test
-	public void test(){
+	public void test() throws ExpressionEvaluationException{
 		Expression expression = new ConstantExpression(operand);
 		Assert.assertEquals(expected,
-				expression.evaluate(new ExpressionContext() {
-				}));
+				expression.evaluate(new SimpleExpressionContext()));
 	}
 }
 
