@@ -24,7 +24,7 @@ public class VariableExpressionTest {
 	public void test() throws ExpressionEvaluationException{
 		Assert.assertEquals(value, expression.evaluate(context));
 	}
-	
+
 	@Test(expected = ExpressionEvaluationException.class)
 	public void negativeTest() throws ExpressionEvaluationException{
 		context.setVariable(name, null);

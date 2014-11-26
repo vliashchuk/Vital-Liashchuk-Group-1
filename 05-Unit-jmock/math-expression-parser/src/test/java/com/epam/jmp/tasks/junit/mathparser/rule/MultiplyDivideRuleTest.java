@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import com.epam.jmp.tasks.junit.mathparser.expression.DivideExpression;
 import com.epam.jmp.tasks.junit.mathparser.expression.Expression;
-import com.epam.jmp.tasks.junit.mathparser.expression.ExpressionContext;
 import com.epam.jmp.tasks.junit.mathparser.expression.ExpressionEvaluationException;
 import com.epam.jmp.tasks.junit.mathparser.expression.MultiplyExpression;
 import com.epam.jmp.tasks.junit.mathparser.expression.SimpleExpressionContext;
