@@ -1,0 +1,2 @@
+connect
+jms-queue add --queue-address=HelloQueue --entries=queue/HelloQueue,java:jboss/exported/jms/queue/HelloQueue

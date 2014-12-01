@@ -1,0 +1,4 @@
+<suite name="Books library test Suite" verbose="1" >
+	<test name="EJB Test"   >
+	</test>
+</suite>
