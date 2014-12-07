@@ -1,9 +1,11 @@
-package com.epam.jmp.tasks.j2ee.hello.ejb;
+package com.epam.jmp.tasks.j2ee.hello.service;
 
 import javax.ejb.EJB;
 import javax.jws.WebService;
 
-@WebService(endpointInterface = "com.epam.jmp.tasks.j2ee.hello.ejb.HelloWebService", serviceName = "HelloWebService")
+import com.epam.jmp.tasks.j2ee.hello.ejb.HelloService;
+
+@WebService(endpointInterface = "com.epam.jmp.tasks.j2ee.hello.service.HelloWebService", serviceName = "HelloWebService")
 public class HelloWebServiceImpl implements HelloWebService{
 
 	@EJB

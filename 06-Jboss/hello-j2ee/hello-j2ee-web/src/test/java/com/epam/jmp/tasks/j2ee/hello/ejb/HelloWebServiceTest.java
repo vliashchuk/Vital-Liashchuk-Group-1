@@ -5,6 +5,8 @@ import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.testng.annotations.Test;
 
+import com.epam.jmp.tasks.j2ee.hello.service.HelloWebService;
+
 public class HelloWebServiceTest {
 
 	@Test

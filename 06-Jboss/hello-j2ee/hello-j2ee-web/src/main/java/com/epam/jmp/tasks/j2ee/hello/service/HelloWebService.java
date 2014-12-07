@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.j2ee.hello.ejb;
+package com.epam.jmp.tasks.j2ee.hello.service;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
