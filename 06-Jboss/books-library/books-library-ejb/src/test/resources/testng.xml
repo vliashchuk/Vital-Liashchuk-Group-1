@@ -1,7 +1,0 @@
-<suite name="Books library test Suite" verbose="1" >
-  <test name="EJB Test"   >
-    <classes>
-      <class name="com.epam.jmp.tasks.j2ee.bookslibrary.ejb.test.BookManagerBeanTest"/>
-    </classes>
- </test>
-</suite>
