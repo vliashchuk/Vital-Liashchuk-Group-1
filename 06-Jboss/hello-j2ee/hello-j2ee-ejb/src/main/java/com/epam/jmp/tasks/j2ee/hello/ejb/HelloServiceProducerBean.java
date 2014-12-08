@@ -26,22 +26,31 @@ public class HelloServiceProducerBean implements HelloServiceProducer, HelloServ
 
 	@Override
 	public void hello(String message) {
+		QueueConnection connection;
+		QueueSession session;
+		QueueSender sender;
 		try {
 			InitialContext context = new InitialContext();
 			QueueConnectionFactory connectionFactory =
 					(QueueConnectionFactory) context.lookup(CONNECTION_FACTORY_NAME);
-			QueueConnection connection = connectionFactory.createQueueConnection();
-			QueueSession session = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+			connection = connectionFactory.createQueueConnection();
+			session = connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
 			connection.start();
 			Queue queue = (Queue) context.lookup(QUEUE_NAME);
-			QueueSender sender = session.createSender(queue);
+			sender = session.createSender(queue);
 			
 			TextMessage msg = session.createTextMessage();
 			msg.setText(message);
 			sender.send(msg);  // Messages sent
+			
+			sender.close();
+			session.close();
+			connection.close();
 		} catch (NamingException | JMSException e) {
 			LOGGER.error("Error while sending message to queue.", e);
 			throw new RuntimeException("Error while sending message to queue.", e);
+		} finally {
+
 		}
 
         
