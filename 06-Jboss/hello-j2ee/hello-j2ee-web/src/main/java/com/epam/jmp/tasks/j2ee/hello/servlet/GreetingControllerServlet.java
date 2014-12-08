@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.epam.jmp.tasks.j2ee.hello.ejb.GreetingService;
 import com.epam.jmp.tasks.j2ee.hello.ejb.domain.Greeting;
-import com.epam.jmp.tasks.j2ee.hello.ejb.domain.SimpleGreeting;
+import com.epam.jmp.tasks.j2ee.hello.ejb.domain.GreetingEntity;
 
 @WebServlet("/GreetingControllerServlet")
 public class GreetingControllerServlet extends HttpServlet
@@ -28,27 +28,33 @@ public class GreetingControllerServlet extends HttpServlet
 	
     private static String INSERT_OR_EDIT = "/greeting.jsp";
     private static String LIST_GREETING = "/listGreeting.jsp";
+    private static String ERROR_MESSAGE = "/error.jsp";
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     		throws ServletException, IOException {
         String forward="";
         String action = request.getParameter("action");
-
-        if (action.equalsIgnoreCase("delete")){
+        if(action == null){
+        	request.setAttribute("errorMessage", "Action is Null!");
+            forward = ERROR_MESSAGE;
+        } else  if (action.equalsIgnoreCase("delete")){
             int greetingId = Integer.parseInt(request.getParameter("greetingId"));
             greetingService.deleteGreeting(greetingId);
             forward = LIST_GREETING;
             request.setAttribute("greetings", greetingService.listGreetings());    
+        } else if (action.equalsIgnoreCase("listGreetings")){
+            forward = LIST_GREETING;
+            request.setAttribute("greetings", greetingService.listGreetings());
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             int greetingId = Integer.parseInt(request.getParameter("greetingId"));
             Greeting greeting = greetingService.getGreeting(greetingId);
             request.setAttribute("greeting", greeting);
-        } else if (action.equalsIgnoreCase("listGreetings")){
-            forward = LIST_GREETING;
-            request.setAttribute("greetings", greetingService.listGreetings());
-        } else {
+        } else if (action.equalsIgnoreCase("insert")){
             forward = INSERT_OR_EDIT;
+        } else {
+        	request.setAttribute("errorMessage", "Action '" + action + "' is not supported!");
+            forward = ERROR_MESSAGE;
         }
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
@@ -61,7 +67,7 @@ public class GreetingControllerServlet extends HttpServlet
         
         if(greetingIdString!=null && greetingIdString.length()>0){
            	int greetingId = Integer.parseInt(greetingIdString);
-            SimpleGreeting greeting = new SimpleGreeting();
+            GreetingEntity greeting = new GreetingEntity();
             greeting.setId(greetingId);
             greeting.setText(greetingText);
             greetingService.updateGreeting(greeting);

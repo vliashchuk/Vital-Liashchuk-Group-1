@@ -1,0 +1,12 @@
+<persistence>
+    <persistence-unit name="persistenceUnit">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+        <class>com.epam.jmp.tasks.j2ee.hello.ejb.domain.GreetingEntity</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+        </properties>
+    </persistence-unit>
+</persistence>
