@@ -26,6 +26,11 @@ public class UnitServiceBean implements UnitService, UnitServiceRemote{
 	@Override
 	public void deleteUnit(Long id) {
 		Unit u = entityManager.find(Unit.class, id);
+		
+		Collection<Employee> ee = u.getEmployees();
+		for(Employee e:ee){
+			e.setUnit(null);
+		}
 		entityManager.remove(u);
 	}
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -35,7 +36,7 @@ public class Employee implements Serializable {
 	@Embedded
 	private Address address;
 	
-	@OneToOne(mappedBy = "employee")
+	@OneToOne(cascade=CascadeType.REMOVE, mappedBy = "employee")
 	private EmployeePersonalInfo personalInfo;
 	
 	@ManyToOne

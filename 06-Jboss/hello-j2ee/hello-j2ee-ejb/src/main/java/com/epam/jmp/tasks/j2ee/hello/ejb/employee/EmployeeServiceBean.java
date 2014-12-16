@@ -27,7 +27,6 @@ public class EmployeeServiceBean implements EmployeeService, EmployeeServiceRemo
 	public void deleteEmployee(Long id) {
 		Employee e = entityManager.find(Employee.class, id);
 		if(e!=null){
-			entityManager.remove(e.getPersonalInfo());
 			entityManager.remove(e);
 		}
 	}

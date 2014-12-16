@@ -27,6 +27,10 @@ public class ProjectServiceBean implements ProjectService, ProjectServiceRemote{
 	@Override
 	public void deleteProject(Long id) {
 		Project p = entityManager.find(Project.class, id);
+		Collection<Employee> ee = p.getEmployees();
+		for(Employee e:ee){
+			e.getProjects().remove(p);
+		}
 		entityManager.remove(p);
 	}
 

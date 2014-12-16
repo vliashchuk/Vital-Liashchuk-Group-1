@@ -80,37 +80,53 @@ public class EmployeeServicesInterationTest extends AbstractRemoteTest{
 			System.out.println(project);
 		}
 		
-//		System.out.println("Deleting project...");
-//		projectService.deleteProject(project1.getId());
-//		
-//		employees = employeeService.listAllEmployees();
-//		for(Employee employee:employees){
-//			System.out.println(employee);
-//		}
-//		units = unitService.listAllUnits();
-//		for(Unit unit:units){
-//			System.out.println(unit);
-//		}
-//		projects = projectService.listAllProjects();
-//		for(Project project:projects){
-//			System.out.println(project);
-//		}
-//		
-//		System.out.println("Deleting unit...");
-//		unitService.deleteUnit(unit1.getId());
-//		
-//		employees = employeeService.listAllEmployees();
-//		for(Employee employee:employees){
-//			System.out.println(employee);
-//		}
-//		units = unitService.listAllUnits();
-//		for(Unit unit:units){
-//			System.out.println(unit);
-//		}
-//		projects = projectService.listAllProjects();
-//		for(Project project:projects){
-//			System.out.println(project);
-//		}
+		System.out.println("Deleting employee...");
+		employeeService.deleteEmployee(employee1.getId());
+		
+		employees = employeeService.listAllEmployees();
+		for(Employee employee:employees){
+			System.out.println(employee);
+		}
+		units = unitService.listAllUnits();
+		for(Unit unit:units){
+			System.out.println(unit);
+		}
+		projects = projectService.listAllProjects();
+		for(Project project:projects){
+			System.out.println(project);
+		}
+		
+		System.out.println("Deleting project...");
+		projectService.deleteProject(project1.getId());
+		
+		employees = employeeService.listAllEmployees();
+		for(Employee employee:employees){
+			System.out.println(employee);
+		}
+		units = unitService.listAllUnits();
+		for(Unit unit:units){
+			System.out.println(unit);
+		}
+		projects = projectService.listAllProjects();
+		for(Project project:projects){
+			System.out.println(project);
+		}
+		
+		System.out.println("Deleting unit...");
+		unitService.deleteUnit(unit1.getId());
+		
+		employees = employeeService.listAllEmployees();
+		for(Employee employee:employees){
+			System.out.println(employee);
+		}
+		units = unitService.listAllUnits();
+		for(Unit unit:units){
+			System.out.println(unit);
+		}
+		projects = projectService.listAllProjects();
+		for(Project project:projects){
+			System.out.println(project);
+		}
 		
 	}
 	
