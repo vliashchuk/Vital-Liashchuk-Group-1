@@ -19,10 +19,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.epam.jmp.tasks.j2ee.hello.ejb.employee.Persistable;
-
 @Entity
-public class Employee implements Serializable, Persistable {
+public class Employee implements Serializable {
 	/**
 	 * 
 	 */

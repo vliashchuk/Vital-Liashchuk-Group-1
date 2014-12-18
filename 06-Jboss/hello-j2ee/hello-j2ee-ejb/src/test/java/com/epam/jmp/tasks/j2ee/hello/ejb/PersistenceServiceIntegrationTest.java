@@ -1,13 +1,12 @@
 package com.epam.jmp.tasks.j2ee.hello.ejb;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
+import javax.naming.Context;
 import javax.naming.NamingException;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.unitils.reflectionassert.ReflectionAssert;
 
@@ -15,22 +14,27 @@ import com.epam.jmp.tasks.j2ee.hello.ejb.domain.employee.Address;
 import com.epam.jmp.tasks.j2ee.hello.ejb.domain.employee.Employee;
 import com.epam.jmp.tasks.j2ee.hello.ejb.domain.employee.EmployeePersonalInfo;
 import com.epam.jmp.tasks.j2ee.hello.ejb.domain.employee.EmployeeStatus;
+import com.epam.jmp.tasks.j2ee.hello.ejb.domain.employee.Project;
 import com.epam.jmp.tasks.j2ee.hello.ejb.domain.employee.Unit;
 import com.epam.jmp.tasks.j2ee.hello.ejb.employee.PersistenceServiceRemote;
 
+@Test(singleThreaded=true)
 public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 	
 	private int sequence = 0;
 	
 	private PersistenceServiceRemote persistenceService;
+	private Context context;
 	
-	@BeforeClass
+	@BeforeTest
 	public void prepare() throws NamingException{
-		persistenceService = (PersistenceServiceRemote) super.getContext()
+		context = super.getContext();
+		persistenceService = (PersistenceServiceRemote) context
 				.lookup("hello-j2ee-ear/hello-j2ee-ejb-1.0-SNAPSHOT/PersistenceServiceBean!com.epam.jmp.tasks.j2ee.hello.ejb.employee.PersistenceServiceRemote");
+
 	}
 	
-	synchronized private Employee createEmployee(){
+	private Employee createEmployee(){
 		sequence++;
 		Employee employee = new Employee();
 		Address adress = new Address();
@@ -42,10 +46,11 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 		info.setFirstName("Ivan" + sequence);
 		info.setLastName("Ivanov" + sequence);
 		employee.setPersonalInfo(info);
+		employee.setProjects(new HashSet<Project>());
 		return employee;
 	}
 	
-	synchronized private Unit createUnit(){
+	private Unit createUnit(){
 		sequence++;
 		Unit unit = new Unit();
 		unit.setName("Java unit " + sequence);
@@ -53,8 +58,16 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 		return unit;
 	}
 	
+	private Project createProject(){
+		sequence++;
+		Project project = new Project();
+		project.setName("Some project " + sequence);
+		project.setEmployees(new HashSet<Employee>());
+		return project;
+	}
+	
 	@Test
-	public void testEmployeeCreation() throws NamingException{
+	public void testEmployeeCreation(){
 		Employee employee = createEmployee();
 	    employee =  persistenceService.create(employee);
 		Employee persisted = persistenceService.find(Employee.class, employee.getId());
@@ -64,7 +77,7 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 	}
 	
 	@Test
-	public void testEmployeeDeletion() throws NamingException{
+	public void testEmployeeDeletion(){
 		Employee employee = createEmployee();
 	    employee =  persistenceService.create(employee);
 		Employee persisted = persistenceService.find(Employee.class, employee.getId());
@@ -76,7 +89,7 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 	}
 	
 	@Test
-	public void testEmployeeModification() throws NamingException{
+	public void testEmployeeModification(){
 		Employee employee = createEmployee();
 	    employee =  persistenceService.create(employee);
 		
@@ -96,7 +109,7 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 	}
 	
 	@Test
-	public void testUnitDeletion() throws NamingException{
+	public void testUnitCreation(){
 		
 		Unit unit = createUnit();
 		unit = persistenceService.create(unit);
@@ -106,7 +119,7 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 	}
 	
 	@Test
-	public void testUnitCreation() throws NamingException{
+	public void testUnitDeletion(){
 		
 		Unit unit = createUnit();
 		unit = persistenceService.create(unit);
@@ -118,7 +131,7 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 	}
 	
 	@Test
-	public void testUnitModification() throws NamingException{
+	public void testUnitModification(){
 		
 		Unit unit = createUnit();
 		unit = persistenceService.create(unit);	
@@ -138,6 +151,52 @@ public class PersistenceServiceIntegrationTest extends AbstractRemoteTest {
 		persistenceService.update(employee);
 		persistenceService.delete(Unit.class, unit.getId());
 		persisted = persistenceService.find(Unit.class, unit.getId());
+		Assert.assertNull(persisted);
+	}
+	
+	@Test
+	public void testProjectCreation(){
+		
+		Project project = createProject();
+		project = persistenceService.create(project);
+		Project persisted = persistenceService.find(Project.class, project.getId());
+		ReflectionAssert.assertLenientEquals(project, persisted);
+		persistenceService.delete(Project.class, project.getId());
+	}
+	
+	@Test
+	public void testProjectDeletion(){
+		
+		Project project = createProject();
+		project = persistenceService.create(project);
+		Project persisted = persistenceService.find(Project.class, project.getId());
+		ReflectionAssert.assertLenientEquals(project, persisted);
+		persistenceService.delete(Project.class, project.getId());
+		persisted = persistenceService.find(Project.class, project.getId());
+		Assert.assertNull(persisted);
+	}
+	
+	@Test
+	public void testProjectModification(){
+		
+		Project project = createProject();
+		project = persistenceService.create(project);
+		
+		Employee employee = createEmployee();
+	    employee =  persistenceService.create(employee);
+		
+	    employee.getProjects().add(project);
+	    project.getEmployees().add(employee);
+	    project.setName(project.getName() + "_Changed");
+
+	    persistenceService.update(employee);
+	    Project persisted = persistenceService.find(Project.class, project.getId());
+		ReflectionAssert.assertLenientEquals(project, persisted);
+		
+		employee.getProjects().remove(project);
+		persistenceService.update(employee);
+		persistenceService.delete(Project.class, project.getId());
+		persisted = persistenceService.find(Project.class, project.getId());
 		Assert.assertNull(persisted);
 	}
 }

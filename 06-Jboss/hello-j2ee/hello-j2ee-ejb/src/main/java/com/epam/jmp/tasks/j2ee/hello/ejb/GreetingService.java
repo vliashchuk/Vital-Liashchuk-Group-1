@@ -10,9 +10,13 @@ import com.epam.jmp.tasks.j2ee.hello.ejb.domain.Greeting;
 public interface GreetingService {
 
 	Greeting createGreeting(String text);
+
 	Greeting getGreeting(int id);
+
 	void updateGreeting(Greeting greeting);
+
 	void deleteGreeting(int id);
+
 	List<Greeting> listGreetings();
-	
+
 }
