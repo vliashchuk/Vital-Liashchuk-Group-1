@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,8 +23,7 @@ public class EmployeePersonalInfo implements Serializable{
 	private String firstName;
 	private String lastName;
 	
-	@OneToOne
-	@JoinColumn(name = "employee_id")
+	@OneToOne(mappedBy = "personalInfo")
 	private Employee employee;
 
 	public String getFirstName() {

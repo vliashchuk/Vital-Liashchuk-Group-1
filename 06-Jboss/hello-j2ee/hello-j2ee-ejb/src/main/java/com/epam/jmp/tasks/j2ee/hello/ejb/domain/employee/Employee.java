@@ -19,8 +19,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.epam.jmp.tasks.j2ee.hello.ejb.employee.Persistable;
+
 @Entity
-public class Employee implements Serializable {
+public class Employee implements Serializable, Persistable {
 	/**
 	 * 
 	 */
@@ -36,14 +38,15 @@ public class Employee implements Serializable {
 	@Embedded
 	private Address address;
 	
-	@OneToOne(cascade=CascadeType.REMOVE, mappedBy = "employee")
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "personal_info_id")
 	private EmployeePersonalInfo personalInfo;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "unit_id")
 	private Unit unit;
 	
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(
 			name = "employee_projects",
 			joinColumns = @JoinColumn(name = "employee_id"),
