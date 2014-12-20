@@ -5,11 +5,11 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 @Local
-public interface PersistenceService {
+public interface PersistenceService<T, I> {
 
-    <T> T create(T t);
-    <T> T find(Class<T> type, Object id);
-    <T> void delete(Class<T> type, Object id);
-    <T> void update(T t);
-    <T> Collection<T> listAll(Class<T> type);
+    T create(T t);
+    T find(I id);
+    void delete(I id);
+    void update(T t);
+    Collection<T> listAll();
 }
