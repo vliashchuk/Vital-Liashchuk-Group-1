@@ -15,12 +15,18 @@ import org.shop.repository.map.SellerMapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 
 @Configuration
+@PropertySource("classpath:resource-config.properties")
 public class RepositoryConfiguration {
 
 	@Autowired
 	UserRepositoryFactory userRepositoryFactory;
+	
+	@Autowired
+    Environment env;
 	
 	@Bean
 	public UserRepository userRepository(){
@@ -44,7 +50,9 @@ public class RepositoryConfiguration {
 	
 	@Bean
 	public OrderRepository orderRepository(){
-		return new OrderMapRepository();
+		OrderMapRepository repo = new OrderMapRepository();
+		repo.setSequence(Long.parseLong(env.getProperty("repository.order.pk")));
+		return repo;
 	}
 	
 	@Bean

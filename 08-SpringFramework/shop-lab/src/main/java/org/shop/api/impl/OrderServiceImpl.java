@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.shop.api.ItemService;
 import org.shop.api.OrderService;
 import org.shop.data.Item;
@@ -14,14 +16,15 @@ import org.shop.repository.OrderRepository;
 
 public class OrderServiceImpl implements OrderService {
 
+	@Resource
     private OrderRepository orderRepository;
     
     private ItemService itemService;
 
-    public OrderServiceImpl(OrderRepository orderRepository,
+    public OrderServiceImpl(
 			ItemService itemService) {
 		super();
-		this.orderRepository = orderRepository;
+//		this.orderRepository = orderRepository;
 		this.itemService = itemService;
 	}
 

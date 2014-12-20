@@ -41,10 +41,10 @@ public class ShopLauncher {
         
         context.getBean(OrderService.class)
 	        .createOrder(
-	        		context.getBean(UserService.class).getUserById(1l),
+	        		context.getBean("alternateUserServiceName", UserService.class).getUserById(1l),
 	        		proposal);
         
-        for (Order order : context.getBean(OrderService.class)
+        for (Order order : ((OrderService)context.getBean("orderService"))
         		.getOrdersByUserId(1l)) {
             System.out.println(order);
             
