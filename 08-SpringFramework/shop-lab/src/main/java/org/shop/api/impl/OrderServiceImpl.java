@@ -13,20 +13,23 @@ import org.shop.data.Order;
 import org.shop.data.Proposal;
 import org.shop.data.User;
 import org.shop.repository.OrderRepository;
+import org.springframework.stereotype.Service;
 
+@Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
 	@Resource
     private OrderRepository orderRepository;
-    
+	
+	@Resource
     private ItemService itemService;
 
-    public OrderServiceImpl(
-			ItemService itemService) {
-		super();
+//    public OrderServiceImpl(
+//			ItemService itemService) {
+//		super();
 //		this.orderRepository = orderRepository;
-		this.itemService = itemService;
-	}
+//		this.itemService = itemService;
+//	}
 
 	@Override
     public Long createOrder(User user, Item... items) {

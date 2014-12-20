@@ -5,14 +5,19 @@ import java.util.List;
 import org.apache.commons.collections.Predicate;
 import org.shop.data.Order;
 import org.shop.repository.OrderRepository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 /**
  * The Class OrderMapRepository.
  * 
  * @author Dzmitry_Naskou
  */
+@Repository("orderRepository")
 public class OrderMapRepository extends AbstractMapRepository<Order> implements OrderRepository {
-
+	
+	
+	@Value("#{new java.lang.Long('${repository.order.pk}')}")
     public void setSequence(long sequence) {
         super.sequence = sequence;
     }
@@ -22,6 +27,7 @@ public class OrderMapRepository extends AbstractMapRepository<Order> implements 
      */
     @Override
     public Order getOrderById(Long id) {
+    	
         return get(id);
     }
 

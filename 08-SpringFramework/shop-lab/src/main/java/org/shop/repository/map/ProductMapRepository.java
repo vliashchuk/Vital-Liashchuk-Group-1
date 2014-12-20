@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.commons.collections.Predicate;
 import org.shop.data.Product;
 import org.shop.repository.ProductRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository("productRepository")
 public class ProductMapRepository extends AbstractMapRepository<Product> implements ProductRepository {
 
     /* (non-Javadoc)
