@@ -23,22 +23,31 @@ import org.springframework.context.annotation.Configuration;
 public class InitializerConfiguration {
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@Autowired
-	SellerService sellerService;
+	private SellerService sellerService;
 
 	@Autowired
-	ProposalService proposalService;
+	private ProposalService proposalService;
 
 	@Autowired
-	ProductService productService;
+	private ProductService productService;
 
 	@Autowired
-	OrderService orderService;
+	private OrderService orderService;
 
 	@Autowired
-	ItemService itemService;
+	private ItemService itemService;
+	
+	@Bean
+	public Map<Long, String> sellerNames(){
+		HashMap<Long, String> map = new HashMap<Long, String>();
+        map.put(new Long(1), Sellers.AMAZON);
+        map.put(new Long(2), Sellers.SAMSUNG);
+        map.put(new Long(3), "Apple");
+        return map;
+	}
 	
 	@Bean
 	public DataInitializer dataInitializer(){
@@ -53,14 +62,8 @@ public class InitializerConfiguration {
 						proposalService,
 						sellerService));
 		
-		
-        Map<Long, String> map = new HashMap<Long, String>();
-        map.put(new Long(1), Sellers.AMAZON);
-        map.put(new Long(2), Sellers.SAMSUNG);
-        map.put(new Long(3), "Apple");
-		
 		dataInitializer.setSellerInitializer(
-				new SellerInitializer(sellerService, map));
+				new SellerInitializer(sellerService, sellerNames()));
 		
 		dataInitializer.setUserInitializer(
 				new UserInitializer(userService));
