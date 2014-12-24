@@ -10,11 +10,6 @@ public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
 
-    public UserServiceImpl(UserRepository repository) {
-		super();
-		this.repository = repository;
-	}
-
 	/* (non-Javadoc)
      * @see org.shop.api.UserService#registerUser(org.shop.data.User)
      */

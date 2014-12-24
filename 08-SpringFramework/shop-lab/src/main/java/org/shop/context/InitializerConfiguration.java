@@ -8,8 +8,6 @@ import org.shop.ProductInitializer;
 import org.shop.ProposalInitializer;
 import org.shop.SellerInitializer;
 import org.shop.UserInitializer;
-import org.shop.api.ItemService;
-import org.shop.api.OrderService;
 import org.shop.api.ProductService;
 import org.shop.api.ProposalService;
 import org.shop.api.SellerService;
@@ -33,12 +31,6 @@ public class InitializerConfiguration {
 
 	@Autowired
 	private ProductService productService;
-
-	@Autowired
-	private OrderService orderService;
-
-	@Autowired
-	private ItemService itemService;
 	
 	@Bean
 	public Map<Long, String> sellerNames(){

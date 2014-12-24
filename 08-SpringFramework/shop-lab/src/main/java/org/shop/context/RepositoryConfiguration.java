@@ -27,31 +27,4 @@ public class RepositoryConfiguration {
 		return userRepositoryFactory.createUserRepository();
 	}
 	
-//	@Bean
-//	public SellerRepository sellerRepository(){
-//		return new SellerMapRepository();
-//	}
-//	
-//	@Bean
-//	public ProposalRepository proposalRepository(){
-//		return new ProposalMapRepository();
-//	}
-//	
-//	@Bean
-//	public ProductRepository productRepository(){
-//		return new ProductMapRepository();
-//	}
-	
-//	@Bean
-//	public OrderRepository orderRepository(){
-//		OrderMapRepository repo = new OrderMapRepository();
-//		repo.setSequence(Long.parseLong(env.getProperty("repository.order.pk")));
-//		return repo;
-//	}
-	
-//	@Bean
-//	public ItemRepository itemRepository(){
-//		return new ItemMapRepository();
-//	}
-	
 }

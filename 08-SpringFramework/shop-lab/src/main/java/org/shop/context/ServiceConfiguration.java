@@ -15,15 +15,6 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = "org.shop.api.impl")
 public class ServiceConfiguration {
 
-//    @Autowired
-//    private UserRepositoryFactory userRepositoryFactory;
-    
-//    @Autowired
-//    private ProposalRepository proposalRepository;
-//    
-//    @Autowired
-//    private ProductRepository productRepository;
-    
     @Autowired
     private ItemRepository itemRepository;    
     
@@ -32,29 +23,12 @@ public class ServiceConfiguration {
 
 	@Bean(name = {"userService", "alternateUserServiceName"})
 	public UserService userService(){
-		return new UserServiceImpl(userRepository);
+		
+		UserServiceImpl userServiceImpl = new UserServiceImpl();
+		userServiceImpl.populate(userRepository);
+		
+		return userServiceImpl;
 	}
-	
-//	@Bean
-//	public SellerService sellerService(){
-//		return new SellerServiceImpl();
-//	}
-	
-//	@Bean
-//	public ProposalService proposalService(){
-//		return new ProposalServiceImpl(proposalRepository,
-//				sellerService(), productService());
-//	}
-	
-//	@Bean
-//	public ProductService productService(){
-//		return new ProductServiceImpl();
-//	}
-	
-//	@Bean
-//	public OrderService orderService(){
-//		return new OrderServiceImpl();
-//	} 
 	
 	@Bean
 	public ItemService itemService(){
