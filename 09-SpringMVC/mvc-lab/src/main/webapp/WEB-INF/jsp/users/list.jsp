@@ -17,7 +17,7 @@
                 <th>Name</th>
                 <th>Action</th>
                  
-                <c:forEach var="user" items="${users}" varStatus="status">
+                <c:forEach var="user" items="${users.users}" varStatus="status">
                 <tr>
                     <td>${status.index + 1}</td>
                     <td>${user.id}</td>

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.epam.jmp.tasks.mvc.domain.UserList;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -18,10 +20,20 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list(Model model){
+		User user = new User();
+		user.setId(1l);
+		user.setUsername("user");
+		userService.registerUser(user);
 		
-		model.addAttribute("users", userService.getUsers());
+		model.addAttribute("users", new UserList(userService.getUsers()));
 		
 		return "users/list";
+	}
+	
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
+	public String empty(Model model){
+		
+		return "users/detail";
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
