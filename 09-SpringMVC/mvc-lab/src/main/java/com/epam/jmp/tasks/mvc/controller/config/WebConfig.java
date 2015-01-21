@@ -16,6 +16,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.tiles2.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles2.TilesView;
+import org.springframework.web.servlet.view.tiles2.TilesViewResolver;
 
 import com.epam.jmp.tasks.mvc.domain.UserList;
 import com.epam.jmp.tasks.mvc.viewresolver.JsonViewResolver;
@@ -43,11 +46,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	    // Define the view resolvers
 	    List<ViewResolver> resolvers = new ArrayList<ViewResolver>();
 
-
-	    InternalResourceViewResolver r1 = new InternalResourceViewResolver();
-	    r1.setPrefix("WEB-INF/jsp/");
-	    r1.setSuffix(".jsp");
-	    resolvers.add(r1);
+	    TilesViewResolver r = new TilesViewResolver();
+	    r.setContentType("text/html");
+	    resolvers.add(r);
+//	    InternalResourceViewResolver r1 = new InternalResourceViewResolver();
+//	    r1.setPrefix("WEB-INF/jsp/");
+//	    r1.setSuffix(".jsp");
+//	    resolvers.add(r1);
 	    
 	    JsonViewResolver r2 = new JsonViewResolver();
 	    resolvers.add(r2);
@@ -65,4 +70,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	    resolver.setContentNegotiationManager(manager);
 	    return resolver;
 	  }
+	  
+	  @Bean(name = "tilesConfigurer")
+		public TilesConfigurer getTilesConfigurer() {
+			TilesConfigurer configurer = new TilesConfigurer();
+			String[] tilesDefFiles = {"/WEB-INF/tiles/tiles-templates.xml"};
+			configurer.setDefinitions(tilesDefFiles);
+			return configurer;
+		}
 }
