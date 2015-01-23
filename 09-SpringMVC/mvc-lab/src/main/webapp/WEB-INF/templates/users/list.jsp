@@ -1,6 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:url var="scriptUrl" value="/resources/script/delete-request.js" />
+<script src="${scriptUrl}"></script>
+
+<c:url var="userListUrl" value="/users" />
 <div id="content">
     <h1>User list</h1>
     <table border="1">
@@ -15,9 +19,10 @@
             <td>${user.id}</td>
             <td>${user.username}</td>
             <td>
-                <a href="<c:url value="/users/${user.id}"/>">Edit</a>
+                <a href="${userDetailsUrl}">Edit</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="<c:url value="/users/${user.id}"/>">Delete</a>
+                
+                <a href="javascript:sendDeleteRequest('${userListUrl}/${user.id}', '${userListUrl}')">Delete</a>
             </td>
                      
         </tr>

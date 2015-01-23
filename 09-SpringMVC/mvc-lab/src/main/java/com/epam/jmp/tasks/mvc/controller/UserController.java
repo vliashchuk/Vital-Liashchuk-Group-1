@@ -31,6 +31,7 @@ public class UserController {
 	public String empty(Model model){
 		
 		model.addAttribute("user", new User());
+		model.addAttribute("_method", "POST");
 		return "users/detail";
 	}
 	
@@ -38,7 +39,7 @@ public class UserController {
 	public String detail(@PathVariable("id") Long id, Model model){
 		
 		model.addAttribute("user", userService.getUserById(id));
-		
+		model.addAttribute("_method", "PUT");
 		return "users/detail";
 	}
 	
@@ -73,7 +74,8 @@ public class UserController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("id") Long id, Model model){
 		
-		System.out.println("Got user delete request, id: " + id);
+		userService.deleteUserProfile(id);
+		
 		return "redirect:/users";
 	}
 	

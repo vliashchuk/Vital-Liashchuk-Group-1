@@ -35,6 +35,13 @@ public interface UserRepository {
     void updateUser(User user);
     
     /**
+     * Delete user.
+     *
+     * @param id the user id
+     */
+    void deleteUser(Long id);
+    
+    /**
      * Gets the users.
      *
      * @return the users

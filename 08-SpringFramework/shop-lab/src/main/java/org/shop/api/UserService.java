@@ -36,6 +36,13 @@ public interface UserService {
     void updateUserProfile(User user);
     
     /**
+     * Delete user profile.
+     *
+     * @param id the user profile id
+     */
+    void deleteUserProfile(Long id);
+    
+    /**
      * Gets the users.
      *
      * @return the users

@@ -57,6 +57,14 @@ public final class UserRepositoryFactory {
         }
 
         /* (non-Javadoc)
+         * @see org.shop.repository.UserRepository#updateUser(org.shop.data.User)
+         */
+        @Override
+        public void deleteUser(Long id) {
+            delete(id);
+        }
+        
+        /* (non-Javadoc)
          * @see org.shop.repository.UserRepository#getUsers()
          */
         @Override

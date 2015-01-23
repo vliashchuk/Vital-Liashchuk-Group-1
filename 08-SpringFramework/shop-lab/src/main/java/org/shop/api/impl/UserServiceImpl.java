@@ -33,6 +33,14 @@ public class UserServiceImpl implements UserService {
     public void updateUserProfile(User user) {
         repository.updateUser(user);
     }
+    
+    /* (non-Javadoc)
+     * @see org.shop.api.UserService#updateUserProfile(org.shop.data.User)
+     */
+    @Override
+    public void deleteUserProfile(Long id) {
+        repository.deleteUser(id);
+    }
 
     /* (non-Javadoc)
      * @see org.shop.api.UserService#getUsers()
