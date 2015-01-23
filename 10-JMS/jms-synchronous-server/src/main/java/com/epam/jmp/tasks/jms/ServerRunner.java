@@ -17,7 +17,12 @@ public class ServerRunner {
 	 */
 	public static void main(String[] args) {
 		
-		runJavaImplementation();
+		if(args != null && args.length>0 && args[0].equals("spring")){
+			runSpringImplementation();
+		} else {
+			runJavaImplementation();
+		}
+		
 	}
 	
 	private static void runSpringImplementation(){
