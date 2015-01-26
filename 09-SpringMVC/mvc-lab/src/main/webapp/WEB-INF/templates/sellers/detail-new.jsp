@@ -7,10 +7,10 @@
 
 
 <div id="content">
-    <h1>User detail</h1>
+    <h1>Seller detail</h1>
     
-<c:url var="saveUrl" value="/users" />
-<form:form modelAttribute="user" method="PUT" action="${saveUrl}">
+<c:url var="saveUrl" value="/sellers" />
+<form:form modelAttribute="seller" method="POST" action="${saveUrl}">
 
  <table>
   <tr>
@@ -19,13 +19,12 @@
   </tr>
   
   <tr>
-   <td><form:label path="username">User name</form:label></td>
-   <td><form:input path="username"/></td>
+   <td><form:label path="name">Seller name</form:label></td>
+   <td><form:input path="name"/></td>
   </tr>
   
  </table> 
  <input type="submit" value="Save" />
- <input type="button" value="Delete" onclick="sendDeleteRequest('${saveUrl}/${user.id}', '${saveUrl}')" />
  
 </form:form>
 

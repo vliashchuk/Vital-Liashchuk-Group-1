@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.shop.data.Order;
+import org.shop.data.Product;
+import org.shop.data.Proposal;
+import org.shop.data.Seller;
 import org.shop.data.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +23,9 @@ import org.springframework.web.servlet.view.tiles2.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles2.TilesView;
 import org.springframework.web.servlet.view.tiles2.TilesViewResolver;
 
+import com.epam.jmp.tasks.mvc.domain.ProductList;
+import com.epam.jmp.tasks.mvc.domain.ProposalList;
+import com.epam.jmp.tasks.mvc.domain.SellerList;
 import com.epam.jmp.tasks.mvc.domain.UserList;
 import com.epam.jmp.tasks.mvc.viewresolver.JsonViewResolver;
 import com.epam.jmp.tasks.mvc.viewresolver.MarshallingXmlViewResolver;
@@ -46,29 +52,32 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	    // Define the view resolvers
 	    List<ViewResolver> resolvers = new ArrayList<ViewResolver>();
 
-	    TilesViewResolver r = new TilesViewResolver();
-	    r.setContentType("text/html");
-	    resolvers.add(r);
-//	    InternalResourceViewResolver r1 = new InternalResourceViewResolver();
-//	    r1.setPrefix("WEB-INF/jsp/");
-//	    r1.setSuffix(".jsp");
-//	    resolvers.add(r1);
+	    TilesViewResolver tvr = new TilesViewResolver();
+	    tvr.setContentType("text/html");
+	    resolvers.add(tvr);
 	    
-	    JsonViewResolver r2 = new JsonViewResolver();
-	    resolvers.add(r2);
+	    JsonViewResolver jvr = new JsonViewResolver();
+	    resolvers.add(jvr);
 	    
 	    
 	    Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-	    Class[] c = {UserList.class, User.class, Order.class};
+	    Class[] c = {UserList.class,
+	    			 User.class,
+	    			 SellerList.class,
+	    			 Seller.class,
+	    			 ProductList.class,
+	    			 Product.class,
+	    			 Proposal.class,
+	    			 ProposalList.class};
 	    marshaller.setClassesToBeBound(c);
-	    MarshallingXmlViewResolver r3 = new MarshallingXmlViewResolver(marshaller);
-	    resolvers.add(r3);
+	    MarshallingXmlViewResolver xvr = new MarshallingXmlViewResolver(marshaller);
+	    resolvers.add(xvr);
 
 	    // Create the CNVR plugging in the resolvers and the content-negotiation manager
-	    ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
-	    resolver.setViewResolvers(resolvers);
-	    resolver.setContentNegotiationManager(manager);
-	    return resolver;
+	    ContentNegotiatingViewResolver cnvr = new ContentNegotiatingViewResolver();
+	    cnvr.setViewResolvers(resolvers);
+	    cnvr.setContentNegotiationManager(manager);
+	    return cnvr;
 	  }
 	  
 	  @Bean(name = "tilesConfigurer")

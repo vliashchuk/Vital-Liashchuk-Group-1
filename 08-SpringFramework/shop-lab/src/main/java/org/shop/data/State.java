@@ -29,6 +29,8 @@ public final class State implements Entity {
         PROPOSAL_STATES = Collections.unmodifiableList(states);
     }
     
+    private State(){}
+    
     private Long id;
     
     private String name;

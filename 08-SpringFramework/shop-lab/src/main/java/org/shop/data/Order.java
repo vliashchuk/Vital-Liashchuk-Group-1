@@ -2,12 +2,15 @@ package org.shop.data;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Entity of <code>Order</code> class represents the order object.
  * 
  * @author Dzmitry_Naskou
  * @see Item
  */
+@XmlRootElement(name="order")
 public class Order implements Entity {
 
     private static final long serialVersionUID = -1964561045551043905L;

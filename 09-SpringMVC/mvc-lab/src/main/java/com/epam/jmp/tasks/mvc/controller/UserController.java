@@ -1,5 +1,6 @@
 package com.epam.jmp.tasks.mvc.controller;
 
+import org.apache.log4j.Logger;
 import org.shop.api.UserService;
 import org.shop.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import com.epam.jmp.tasks.mvc.domain.UserList;
 @RequestMapping("/users")
 public class UserController {
 
+	private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+	
 	@Autowired
 	UserService userService;
 	
@@ -31,34 +34,27 @@ public class UserController {
 	public String empty(Model model){
 		
 		model.addAttribute("user", new User());
-		model.addAttribute("_method", "POST");
-		return "users/detail";
+		return "users/detail-new";
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable("id") Long id, Model model){
 		
 		model.addAttribute("user", userService.getUserById(id));
-		model.addAttribute("_method", "PUT");
 		return "users/detail";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String createOrUpdate(@ModelAttribute("user") User user){
+	public String create(@ModelAttribute("user") User user){
 		
 		Long id = user.getId();
-		
-		if(id == null){
-			id = userService.registerUser(user);
-			
-		} else {
-			User persisted = userService.getUserById(id);
-			if(persisted == null){
-				id = userService.registerUser(user);
-			} else {
-				userService.updateUserProfile(user);
-			}
-		}
+		id = userService.registerUser(user);
+
+		LOGGER.debug("Create user POST called(id="
+				 + user.getId()
+				 + ", name:"
+				 + user.getUsername()
+				 +")");
 		
 		return "redirect:/users/" + id;
 	}
@@ -68,6 +64,12 @@ public class UserController {
 		
 		userService.updateUserProfile(user);
 		
+		LOGGER.debug("Update user PUT called(id="
+				 + user.getId()
+				 + ", name:"
+				 + user.getUsername()
+				 +")");
+		
 		return "redirect:/users/" + user.getId();
 	}
 	
@@ -75,6 +77,10 @@ public class UserController {
 	public String delete(@PathVariable("id") Long id, Model model){
 		
 		userService.deleteUserProfile(id);
+		
+		LOGGER.debug("Delete user DELETE called(id="
+				 + id
+				 +")");
 		
 		return "redirect:/users";
 	}

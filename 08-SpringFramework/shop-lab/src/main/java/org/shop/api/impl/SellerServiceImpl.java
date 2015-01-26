@@ -45,4 +45,9 @@ public class SellerServiceImpl implements SellerService {
             repository.createOrUpdateSeller(seller);
         }
     }
+    
+    @Override
+    public void deleteSeller(Long sellerId) {
+    	repository.deleteSellerById(sellerId);
+    }
 }

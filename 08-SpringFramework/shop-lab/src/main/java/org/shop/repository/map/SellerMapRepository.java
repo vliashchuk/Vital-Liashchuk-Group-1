@@ -15,7 +15,11 @@ public final class SellerMapRepository extends AbstractMapRepository<Seller> imp
      */
     @Override
     public void createOrUpdateSeller(Seller seller) {
-        update(seller);
+    	if(seller.getId() == null || getSellerById(seller.getId())==null){
+    		create(seller);
+    	} else {
+    		update(seller);
+    	}
     }
 
     /* (non-Javadoc)
@@ -32,5 +36,10 @@ public final class SellerMapRepository extends AbstractMapRepository<Seller> imp
     @Override
     public Seller getSellerById(Long sellerId) {
         return get(sellerId);
+    }
+    
+    @Override
+    public void deleteSellerById(Long sellerId) {
+        delete(sellerId);
     }
 }

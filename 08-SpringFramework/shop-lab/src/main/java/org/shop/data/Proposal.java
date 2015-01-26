@@ -1,5 +1,7 @@
 package org.shop.data;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Entity of <code>Proposal</code> class represents the proposal object.
  * 
@@ -7,6 +9,7 @@ package org.shop.data;
  * @see Seller
  * @see Product
  */
+@XmlRootElement(name="proposal")
 public class Proposal implements Entity {
 
     private static final long serialVersionUID = 2419499985539985110L;

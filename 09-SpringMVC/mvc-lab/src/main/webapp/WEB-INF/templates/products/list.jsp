@@ -4,25 +4,26 @@
 <c:url var="scriptUrl" value="/resources/script/delete-request.js" />
 <script src="${scriptUrl}"></script>
 
-<c:url var="userListUrl" value="/users" />
+<c:url var="productListUrl" value="/products" />
 <div id="content">
-    <h1>User list</h1>
+    <h1>Product list</h1>
     <table border="1">
-    	<th>status.index</th>
         <th>Id</th>
         <th>Name</th>
+        <th>Description</th>
         <th>Action</th>
          
-        <c:forEach var="user" items="${users.users}" varStatus="status">
+        <c:forEach var="product" items="${products.products}" varStatus="status">
         <tr>
-            <td>${status.index + 1}</td>
-            <td>${user.id}</td>
-            <td>${user.username}</td>
+            <td>${product.id}</td>
+            <td>${product.name}</td>
+            <td>${product.description}</td>
+            
             <td>
-                <a href="${userListUrl}/${user.id}">Edit</a>
+                <a href="${productListUrl}/${product.id}">Edit</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 
-                <a href="javascript:sendDeleteRequest('${userListUrl}/${user.id}', '${userListUrl}')">Delete</a>
+                <a href="javascript:sendDeleteRequest('${productListUrl}/${product.id}', '${productListUrl}')">Delete</a>
             </td>
                      
         </tr>

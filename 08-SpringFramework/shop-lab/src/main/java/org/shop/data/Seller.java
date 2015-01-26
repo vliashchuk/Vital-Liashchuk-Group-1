@@ -1,10 +1,13 @@
 package org.shop.data;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Entity of <code>Seller</code> class represents the seller object.
  * 
  * @author Dzmitry_Naskou
  */
+@XmlRootElement(name="seller")
 public class Seller implements Entity {
 
     private static final long serialVersionUID = -1560210215625020278L;

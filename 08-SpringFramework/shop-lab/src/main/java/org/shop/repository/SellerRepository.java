@@ -32,4 +32,11 @@ public interface SellerRepository {
      * @return the seller by id
      */
     Seller getSellerById(Long sellerId);
+    
+    /**
+     * Delete the seller by id.
+     *
+     * @param sellerId the seller id
+     */
+    void deleteSellerById(Long sellerId);
 }

@@ -1,11 +1,14 @@
 package org.shop.data;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Entity of <code>Product</code> class represents the product object.
  * 
  * @author Dzmitry_Naskou
  * @see ProductType
  */
+@XmlRootElement(name="product")
 public class Product implements Entity {
     
     private static final long serialVersionUID = -39953610304795440L;

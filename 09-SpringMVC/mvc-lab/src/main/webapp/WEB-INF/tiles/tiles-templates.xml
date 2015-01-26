@@ -24,4 +24,49 @@
     <put-attribute name="content" value="/WEB-INF/templates/users/detail.jsp" />
 </definition>
 
+<definition name="users/detail-new" extends="base-template">
+    <put-attribute name="title" value="User new" />
+    <put-attribute name="content" value="/WEB-INF/templates/users/detail-new.jsp" />
+</definition>
+
+<definition name="sellers/list" extends="base-template">
+    <put-attribute name="title" value="Seller list" />
+    <put-attribute name="content" value="/WEB-INF/templates/sellers/list.jsp" />
+</definition>
+
+<definition name="sellers/detail" extends="base-template">
+    <put-attribute name="title" value="Seller detail" />
+    <put-attribute name="content" value="/WEB-INF/templates/sellers/detail.jsp" />
+</definition>
+
+<definition name="sellers/detail-new" extends="base-template">
+    <put-attribute name="title" value="Seller new" />
+    <put-attribute name="content" value="/WEB-INF/templates/sellers/detail-new.jsp" />
+</definition>
+
+<definition name="products/list" extends="base-template">
+    <put-attribute name="title" value="Product list" />
+    <put-attribute name="content" value="/WEB-INF/templates/products/list.jsp" />
+</definition>
+
+<definition name="products/detail" extends="base-template">
+    <put-attribute name="title" value="Product detail" />
+    <put-attribute name="content" value="/WEB-INF/templates/products/detail.jsp" />
+</definition>
+
+<definition name="products/detail-new" extends="base-template">
+    <put-attribute name="title" value="Product new" />
+    <put-attribute name="content" value="/WEB-INF/templates/products/detail-new.jsp" />
+</definition>
+
+<!-- <definition name="proposals/list-by-seller" extends="base-template"> -->
+<!--     <put-attribute name="title" value="Proposal list" /> -->
+<!--     <put-attribute name="content" value="/WEB-INF/templates/proposals/list-by-seller.jsp" /> -->
+<!-- </definition> -->
+
+<definition name="proposals/detail-new" extends="base-template">
+    <put-attribute name="title" value="Proposal new" />
+    <put-attribute name="content" value="/WEB-INF/templates/proposals/detail-new.jsp" />
+</definition>
+
 </tiles-definitions>

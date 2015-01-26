@@ -33,4 +33,11 @@ public interface SellerService {
      * @return the seller by id
      */
     Seller getSellerById(Long sellerId);
+    
+    /**
+     * Delete the sellers.
+     *
+     * @param sellerId the seller id
+     */
+    void deleteSeller(Long sellerId);
 }
