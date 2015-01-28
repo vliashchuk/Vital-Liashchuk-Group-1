@@ -16,12 +16,12 @@ public class ServerRunner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		if(args != null && args.length>0 && args[0].equals("spring")){
-			runSpringImplementation();
-		} else {
-			runJavaImplementation();
-		}
+		runSpringImplementation();		
+//		if(args != null && args.length>0 && args[0].equals("spring")){
+//			runSpringImplementation();
+//		} else {
+//			runJavaImplementation();
+//		}
 		
 	}
 	
@@ -30,24 +30,8 @@ public class ServerRunner {
 	}
 	
 	private static void runJavaImplementation(){
-		Properties brokerProperties = new Properties();
-		
-		try {
-			brokerProperties.load(ServerRunner.class.getClassLoader().getResourceAsStream("broker.properties"));
-	        BrokerService broker = new BrokerService();
-	        broker.setPersistent(false);
-	        broker.setUseJmx(false);
-	        broker.addConnector(brokerProperties.getProperty("broker.url"));
-	        broker.start();
-	        
-		} catch (Exception e) {
-			LOGGER.error("Error while starting broker.", e);
-			throw new RuntimeException(e);
-		}
-
-		Server server = new Server(brokerProperties.getProperty("broker.url"),
-								   brokerProperties.getProperty("queue.name"));
-		server.run();
+		Server server = new Server();
+		server.start();
 	}
 
 }

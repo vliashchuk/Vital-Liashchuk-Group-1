@@ -27,10 +27,10 @@
         <property name="reconnectOnException" value="true" />
     </bean>
     
-	<bean id="messageListener" class="com.epam.jmp.tasks.jms.ServerQueueListenerAdapter">
-		<constructor-arg>
-			<bean class="com.epam.jmp.tasks.jms.ServerQueueListener" />
-		</constructor-arg>
+	<bean id="messageListener" class="com.epam.jmp.tasks.jms.MessageListener">
+<!-- 		<constructor-arg> -->
+<!-- 			<bean class="com.epam.jmp.tasks.jms.RequestHandler" /> -->
+<!-- 		</constructor-arg> -->
 	</bean>
 	
 	<activemq:queue id="masterRequestQueue" physicalName="${queue.name}" />
@@ -40,6 +40,7 @@
 	    <property name="connectionFactory" ref="connectionFactory"/>
 	    <property name="destination" ref="masterRequestQueue"/>
 	    <property name="messageListener" ref="messageListener" />
+	    <property name="concurrentConsumers" value="${threads.count}" />   
 	</bean>
 
 </beans>

@@ -25,5 +25,6 @@
   <modules>
     <module>jms-synchronous-server</module>
     <module>jms-synchronous-client</module>
+    <module>jms-commons</module>
   </modules>
 </project>

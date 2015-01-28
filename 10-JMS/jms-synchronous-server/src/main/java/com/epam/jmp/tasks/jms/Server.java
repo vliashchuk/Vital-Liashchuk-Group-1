@@ -1,12 +1,9 @@
 package com.epam.jmp.tasks.jms;
 
-import javax.jms.Connection;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.MessageConsumer;
-import javax.jms.Session;
+import java.io.IOException;
+import java.util.Properties;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.broker.BrokerService;
 import org.apache.log4j.Logger;
 
 
@@ -14,32 +11,47 @@ public class Server {
 	
 	private static final Logger LOGGER = Logger.getLogger(Server.class);
 	
-	private String brokerURL;
-	private String queueName;
-		
-	public Server(String brokerURL, String queueName) {
+	private BrokerService broker;
+	TaskRunner serverConsumerRunner;
+	public Server() {
 		super();
-		this.brokerURL = brokerURL;
-		this.queueName = queueName;
 	}
 
-	public void run(){
+	public void start(){
 		
-		ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerURL);
+		BrokerProperties properties = new BrokerProperties();
+		properties.load();
+		
 		try {
-			Connection connection = connectionFactory.createConnection();
-			connection.start();
-			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			Destination masterQueue = session.createQueue(queueName);
-			MessageConsumer consumer = session.createConsumer(masterQueue);
-			ServerQueueListener serverQueueListener = new ServerQueueListener();
-			serverQueueListener.setSession(session);
-			consumer.setMessageListener(serverQueueListener);
-			
-		} catch (JMSException e) {
-			LOGGER.error("Error while running server", e);
+	        broker = new BrokerService();
+	        broker.setPersistent(false);
+	        broker.setUseJmx(false);
+	        broker.addConnector(properties.getUrl());
+	        broker.start();
+	        
+		} catch (Exception e) {
+			LOGGER.error("Error while starting broker.", e);
 			throw new RuntimeException(e);
 		}
+
+		TaskFactory serverConsumerFactory =
+				new ServerConsumerFactory(properties.getUrl(), properties.getQueue());
+		
+		TaskRunner serverConsumerRunner = new TaskRunner(serverConsumerFactory);
+		serverConsumerRunner.setThreadsCount(properties.getThreadsCount());
+		
+		new Thread(serverConsumerRunner, serverConsumerRunner.getName()).start();
+	}
+	
+	public void stop(){
+		serverConsumerRunner.stop();
+		
+		try {
+			broker.stop();
+		} catch (Exception e) {
+			LOGGER.error("Error while stopping broker.", e);
+		}
+		
 		
 	}
 	

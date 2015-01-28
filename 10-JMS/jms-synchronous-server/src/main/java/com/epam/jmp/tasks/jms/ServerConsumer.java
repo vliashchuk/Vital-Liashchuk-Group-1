@@ -6,26 +6,26 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 
 import org.apache.log4j.Logger;
 
-public class ServerConsumer implements Runnable{
+public class ServerConsumer implements Task{
 
 	private static final Logger LOGGER = Logger.getLogger(ServerConsumer.class);
 	
 	private ConnectionFactory connectionFactory;
 	private String queueName;
-	RequestHandler handler;
+	MessageListener messageListener;
 	private boolean isRunning = false;
 
-	public ServerConsumer(ConnectionFactory connectionFactory, String queueName, RequestHandler handler) {
+	public ServerConsumer(ConnectionFactory connectionFactory,
+						  String queueName,
+						  MessageListener messageListener) {
 		super();
 		this.connectionFactory = connectionFactory;
 		this.queueName = queueName;
-		this.handler = handler;
+		this.messageListener = messageListener;
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class ServerConsumer implements Runnable{
 		
 		try {
 			connection = connectionFactory.createConnection();
-		} catch (Exception e) {
+		} catch (JMSException e) {
 			isRunning = false;
 			LOGGER.error("Error while creating connection", e);
 			return;
@@ -46,40 +46,26 @@ public class ServerConsumer implements Runnable{
 			Session session = connection.createSession(true, -1);
 			Destination masterQueue = session.createQueue(queueName);
 			MessageConsumer consumer = session.createConsumer(masterQueue);
-			MessageProducer producer = session.createProducer(null);
+			
+			connection.start();
 			
 			while(isRunning()){
 				
 				try {
-					Message  request = consumer.receive();
-					
-					if(request.getJMSReplyTo() == null){
-						throw new RuntimeException("Response queue for request message not specified");
-					}
-					
-					String requestString;
-					if(request instanceof TextMessage){
-						requestString = ((TextMessage)request).getText();
-					} else {
-						requestString = "Not recognized message";
-					}
-
-					String responseString = handler.handle(requestString);
-
-					producer.send(request.getJMSReplyTo(),
-								  session.createTextMessage(responseString));
-					
+					Message  request = consumer.receive();	
+					messageListener.onMessage(request, session);		
 					session.commit();
-				} catch (ReturnPathNotSpecifiedException e) {
-					session.commit();
-					throw e;
 				} catch (JMSException e) {
 					session.rollback();
 					throw e;
+				} catch (Exception e) {
+					session.rollback();
+					LOGGER.error("Error while handling message", e);
 				}
 				
 			}
-
+			connection.stop();
+			connection.close();
 			
 		} catch (JMSException e) {
 			isRunning = false;
@@ -100,6 +86,11 @@ public class ServerConsumer implements Runnable{
 	
 	public void stop() {
 		isRunning = false;
+	}
+
+	@Override
+	public String getName() {
+		return this.getClass().getSimpleName();
 	}
 	
 }
