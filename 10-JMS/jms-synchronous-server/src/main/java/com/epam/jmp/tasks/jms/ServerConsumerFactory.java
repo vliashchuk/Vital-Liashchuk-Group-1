@@ -30,7 +30,7 @@ public class ServerConsumerFactory implements TaskFactory {
         this.queueName = queueName;
 
         connectionFactory = new ActiveMQConnectionFactory(brokerURL);
-        messageListener = new MessageListener();
+        messageListener = new MessageListener(new RequestHandler());
     }
 
     @Override

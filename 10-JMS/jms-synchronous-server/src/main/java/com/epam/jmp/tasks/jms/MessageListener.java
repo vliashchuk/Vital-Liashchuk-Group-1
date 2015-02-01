@@ -26,10 +26,12 @@ public class MessageListener implements SessionAwareMessageListener<Message> {
 
     /**
      * Default construnctor.
+     *
+     * @param requestHandler request handler to use.
      */
-    public MessageListener() {
+    public MessageListener(RequestHandler requestHandler) {
         super();
-        this.requestHandler = new RequestHandler();
+        this.requestHandler = requestHandler;
     }
 
     @Override

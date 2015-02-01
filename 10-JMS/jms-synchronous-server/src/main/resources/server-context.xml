@@ -14,7 +14,7 @@
     <context:property-placeholder location="classpath:broker.properties" />
 
     <activemq:broker id="brocker" brokerName="brocker"
-     persistent="false" useJmx="false" schedulerSupport="true">
+     persistent="false" useJmx="false">
      <activemq:transportConnectors>
       <activemq:transportConnector name="opewire"
        uri="${broker.url}" />

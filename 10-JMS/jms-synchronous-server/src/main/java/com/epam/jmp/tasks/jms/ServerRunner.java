@@ -2,7 +2,6 @@ package com.epam.jmp.tasks.jms;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
 /**
  * @author Ihar_Karsakou
  *
@@ -16,7 +15,8 @@ public final class ServerRunner {
     }
 
     /**
-     * @param args cmd argumants.
+     * @param args
+     *            cmd argumants.
      */
     public static void main(String[] args) {
 
