@@ -12,7 +12,7 @@ public class RequestHandlerTest {
         RequestHandler handler = new RequestHandler();
         String request = "request";
         String response = handler.handle(request);
-        Assert.assertTrue(response.matches("Hello, " + request +". It's *"));
+        Assert.assertTrue(response.matches("Hello, " + request +". It's .*"));
     }
     
 }
