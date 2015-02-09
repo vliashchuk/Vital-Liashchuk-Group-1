@@ -21,10 +21,114 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+<dependency>
+  <groupId>org.testng</groupId>
+  <artifactId>testng</artifactId>
+  <version>6.1.1</version>
+  <scope>test</scope>
+</dependency>
+
+<dependency>
+	<groupId>org.mockito</groupId>
+	<artifactId>mockito-all</artifactId>
+	<version>1.9.5</version>
+</dependency>
+
+
   </dependencies>
   <modules>
     <module>jms-synchronous-server</module>
     <module>jms-synchronous-client</module>
     <module>jms-commons</module>
   </modules>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.11</version>
+                <configuration>
+                    <violationSeverity>warning</violationSeverity>
+                    <configLocation>checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <failOnViolation>true</failOnViolation>
+                    <propertyExpansion>config_loc=${user.dir}/</propertyExpansion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<!--
+						Enables analysis which takes more memory but finds more bugs.
+						If you run out of memory, changes the value of the effort element
+						to 'Low'.
+					-->
+					<effort>Max</effort>
+					<!-- Reports all bugs (other values are medium and max) -->
+					<threshold>Low</threshold>
+					<!-- Produces XML report -->
+					<xmlOutput>true</xmlOutput>
+					<!-- Configures the directory in which the XML report is created -->
+					<findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+				</configuration>
+				<executions>
+					<!-- 
+						Ensures that FindBugs inspects source code when project is compiled. 
+					-->
+					<execution>
+						<id>findbugs</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+        	<plugin>
+        		<groupId>org.codehaus.mojo</groupId>
+        		<artifactId>cobertura-maven-plugin</artifactId>
+        		<version>2.6</version>
+        		<configuration>
+                    <aggregate>true</aggregate>
+        			<formats>
+        				<format>html</format>
+        				<format>xml</format>
+        			</formats>
+        		</configuration>
+                <executions>
+                  <execution>
+                   <id>cobertura-report</id>
+                   <phase>package</phase>
+                    <goals>
+                      <goal>cobertura</goal>
+                    </goals>
+                  </execution>
+                </executions>
+        	</plugin>
+        </plugins>
+    </build>  
+  
 </project>

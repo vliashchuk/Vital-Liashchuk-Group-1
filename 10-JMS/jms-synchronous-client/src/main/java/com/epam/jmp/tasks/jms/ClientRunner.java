@@ -1,18 +1,31 @@
 package com.epam.jmp.tasks.jms;
 
 
-public class ClientRunner {
+/**
+ * @author Ihar_Karsakou
+ *
+ */
+public final class ClientRunner {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		runJavaImplementation();
-	}
+    /**
+     * ClientRunner constructor.
+     */
+    private ClientRunner() {
 
-	private static void runJavaImplementation(){
-		Client client = new Client();
-		client.start();
-	}
-	
+    }
+
+    /**
+     * @param args cmd arguments
+     */
+    public static void main(String[] args) {
+        runJavaImplementation();
+    }
+
+    /**
+     * Run Java Implementation.
+     */
+    private static void runJavaImplementation() {
+        Client client = new Client();
+        client.start();
+    }
 }

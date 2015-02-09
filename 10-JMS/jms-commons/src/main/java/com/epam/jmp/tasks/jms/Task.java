@@ -1,11 +1,24 @@
 package com.epam.jmp.tasks.jms;
 
-public interface Task extends Runnable{
+/**
+ * @author Ihar_Karsakou
+ *
+ */
+public interface Task extends Runnable {
 
-	boolean isRunning();
-	
-	void stop();
-	
-	String getName();
-	
+    /**
+     * @return true if task is running.
+     */
+    boolean isRunning();
+
+    /**
+     * Stops task.
+     */
+    void stop();
+
+    /**
+     * @return name of task.
+     */
+    String getName();
+
 }

@@ -1,5 +1,13 @@
 package com.epam.jmp.tasks.jms;
 
+/**
+ * @author Ihar_Karsakou
+ *
+ */
 public interface TaskFactory {
-	Task createTask();
+
+    /**
+     * @return created task.
+     */
+    Task createTask();
 }
