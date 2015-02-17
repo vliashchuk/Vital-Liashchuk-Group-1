@@ -1,6 +1,9 @@
 package com.epam.jmp.tasks.ep.domain;
 
-public class User {
+import com.epam.jmp.tasks.ep.repository.AbstractEntity;
+
+public class User extends AbstractEntity{
+	
 	private String name;
 
 	public String getName() {
@@ -9,4 +12,5 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }
