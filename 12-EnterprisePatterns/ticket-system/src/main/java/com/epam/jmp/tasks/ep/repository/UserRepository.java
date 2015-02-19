@@ -11,26 +11,46 @@ public class UserRepository extends AbstractRepository<User, UserRepository.Tran
 
 		private ReadWriteLock lock = new ReentrantReadWriteLock();
 
-		private Thread lockingThread = null;
+		TransactionManager transactionManager;
+		
+		private Transaction transaction;
 		
 		private void read(){
 			lock.readLock().lock();;
 		}
 
 		private void write(){
+			
 			lock.readLock().unlock();
 			lock.writeLock().lock();
-			lockingThread = Thread.currentThread();
+			
+			if(transaction==null){
+				transaction = transactionManager.createTransaction();
+			}
+			
+			if(transaction.isHoldingThread()){
+
+			} else {
+				transaction.waitUntilTransactionEnds();
+				switch (transaction.getStateId()) {
+				case 1: // commit, cache old values
+					oldName = super.getName();
+					break;
+				case 2: // rollback, restore values
+					super.setName(oldName);
+					break;
+				default: // rollback, restore values
+					super.setName(oldName);
+					break;
+				}
+				transaction = transactionManager.createTransaction();
+			}
+			
 		}
 		
 		private void release(){
 			lock.readLock().unlock();
 			lock.writeLock().unlock();
-			lockingThread = null;
-		}
-		
-		private boolean isLocked(){
-			return lockingThread != null;
 		}
 		
 		private String oldName;
@@ -49,16 +69,15 @@ public class UserRepository extends AbstractRepository<User, UserRepository.Tran
 		
 		public TransactionalUser(User src){
 			super.setName(src.getName());
-			oldName = super.getName();
 		}
 		
 		@Override
 		public String getName() {
 			this.read();
-			if(this.isLocked()){
-				return oldName;
-			}else{
+			if(transaction.isHoldingThread()){
 				return super.getName();
+			}else{
+				return oldName;
 			}
 			
 		}
@@ -66,6 +85,11 @@ public class UserRepository extends AbstractRepository<User, UserRepository.Tran
 		public void setName(String name) {
 			this.write();
 			super.setName(name);
+		}
+
+		@Override
+		public void setTransactionManager(TransactionManager transactionManager) {
+			this.transactionManager = transactionManager;
 		}
 		
 	}
