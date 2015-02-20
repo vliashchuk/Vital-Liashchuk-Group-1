@@ -6,14 +6,15 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionManager {
 
 	private Map<Thread, Transaction> transactions = new ConcurrentHashMap<>();
-	
-	public Transaction createTransaction(){
+
+	public Transaction getTransaction(){
 		Thread currentThread = Thread.currentThread();
 		Transaction transaction = transactions.get(currentThread);
 		if(transaction == null){
-			transaction = new Transaction();
-			transaction.setLockingThread(currentThread);
+			transaction = new Transaction(currentThread);
+			transactions.put(currentThread, transaction);
 		}
+
 		return transaction;
 	}
 	

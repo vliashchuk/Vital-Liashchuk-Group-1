@@ -1,33 +1,51 @@
 package com.epam.jmp.tasks.ep.repository;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class Transaction {
 
-	private Thread lockingThread = null;
+	private Thread lockingThread;
 	
-	int stateId = 0; // 0-started, 1-commited, 2-rollbacked
+	private int stateId = 0; // 0-started, 1-commited, 2-rollbacked
 
-	public Thread getLockingThread() {
-		return lockingThread;
-	}
-
-	public void setLockingThread(Thread lockingThread) {
+	private List<Transactional> transactionParticipants = new CopyOnWriteArrayList<>();
+	
+	public Transaction(Thread lockingThread){
 		this.lockingThread = lockingThread;
 	}
 
 	public int getStateId() {
 		return stateId;
 	}
-
-	public void setStateId(int stateId) {
-		this.stateId = stateId;
-	}
 	
 	public boolean isHoldingThread(){
 		return lockingThread==Thread.currentThread();
 	}
 	
-	public void waitUntilTransactionEnds(){
-		
+	public void commit(){
+		if(isHoldingThread()){
+			stateId = 1;
+			for(Transactional participant:transactionParticipants){
+				participant.commit();
+			}
+		} else {
+			throw new IllegalStateException("Commit can  be made only by thread owner of transaction.");
+		}	
 	}
 	
+	public void rollback(){
+		if(isHoldingThread()){
+			stateId = 2;
+			for(Transactional participant:transactionParticipants){
+				participant.rollback();
+			}
+		} else {
+			throw new IllegalStateException("Rollback can  be made only by thread owner of transaction.");
+		}
+	}
+	
+	public void addParticipant(Transactional participant){
+		transactionParticipants.add(participant);
+	}
 }
