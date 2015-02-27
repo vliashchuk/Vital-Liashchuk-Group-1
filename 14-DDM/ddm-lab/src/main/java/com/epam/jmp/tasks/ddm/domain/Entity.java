@@ -1,4 +1,4 @@
-package com.epam.jmp.tasks.ddm.repository;
+package com.epam.jmp.tasks.ddm.domain;
 
 public interface Entity {
 

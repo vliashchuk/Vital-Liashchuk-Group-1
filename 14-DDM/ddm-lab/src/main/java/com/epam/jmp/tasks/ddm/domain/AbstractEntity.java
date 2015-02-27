@@ -1,4 +1,5 @@
-package com.epam.jmp.tasks.ddm.repository;
+package com.epam.jmp.tasks.ddm.domain;
+
 
 public class AbstractEntity implements Entity{
 	private Long id;

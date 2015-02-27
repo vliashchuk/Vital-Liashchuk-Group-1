@@ -1,6 +1,6 @@
 package com.epam.jmp.tasks.ddm.domain;
 
-public class Film {
+public class Film extends AbstractEntity{
 	private String name;
 
 	public String getName() {

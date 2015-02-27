@@ -2,10 +2,8 @@ package com.epam.jmp.tasks.ddm.domain;
 
 import java.math.BigDecimal;
 
-import com.epam.jmp.tasks.ddm.domain.schedule.Show;
 
-
-public class Ticket {
+public class Ticket extends AbstractEntity {
 
 	private Show show;
 	private Seat seat;

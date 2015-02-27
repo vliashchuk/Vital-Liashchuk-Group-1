@@ -1,6 +1,5 @@
 package com.epam.jmp.tasks.ddm.domain;
 
-import com.epam.jmp.tasks.ddm.repository.AbstractEntity;
 
 
 public class User extends AbstractEntity{

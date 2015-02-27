@@ -1,12 +1,9 @@
-package com.epam.jmp.tasks.ddm.domain.schedule;
+package com.epam.jmp.tasks.ddm.domain;
 
 import java.util.Date;
 
-import com.epam.jmp.tasks.ddm.domain.CinemaHall;
-import com.epam.jmp.tasks.ddm.domain.Film;
 
-
-public class Show implements IShow{
+public class Show extends AbstractEntity {
 	
 	private Date startTime;
 	private Date endTime;

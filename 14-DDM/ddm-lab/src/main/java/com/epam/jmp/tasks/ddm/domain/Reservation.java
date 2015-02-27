@@ -1,6 +1,6 @@
 package com.epam.jmp.tasks.ddm.domain;
 
-public class Reservation {
+public class Reservation extends AbstractEntity {
 	private Ticket ticket;
 	private User user;
 	
